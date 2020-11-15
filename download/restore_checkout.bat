@@ -1,0 +1,1 @@
+c:\xampp\mysql\bin\mysql -uclayton -pclayton checkout < c:\temp\checkout.sql

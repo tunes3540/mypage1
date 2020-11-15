@@ -1,0 +1,2046 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" media="screen" href="/~d/styles/rss2full.xsl"?><?xml-stylesheet type="text/css" media="screen" href="http://feeds.feedburner.com/~d/styles/itemcontent.css"?><rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/" xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" version="2.0">
+
+<channel>
+	<title>CSS-Tricks</title>
+	
+	<link>https://css-tricks.com</link>
+	<description>Tips, Tricks, and Techniques on using Cascading Style Sheets.</description>
+	<lastBuildDate>Fri, 13 Nov 2020 17:43:26 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.5.3</generator>
+<site xmlns="com-wordpress:feed-additions:1">45537868</site>	<atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="http://feeds.feedburner.com/CssTricks" /><feedburner:info xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0" uri="csstricks" /><atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="hub" href="http://pubsubhubbub.appspot.com/" /><item>
+		<title>Parsing Markdown into an Automated Table of Contents</title>
+		<link>https://css-tricks.com/parsing-markdown-into-an-automated-table-of-contents/</link>
+					<comments>https://css-tricks.com/parsing-markdown-into-an-automated-table-of-contents/#comments</comments>
+		
+		<dc:creator><![CDATA[Lisi Linhart]]></dc:creator>
+		<pubDate>Fri, 13 Nov 2020 15:59:31 +0000</pubDate>
+				<category><![CDATA[Article]]></category>
+		<category><![CDATA[IntersectionObserver]]></category>
+		<category><![CDATA[markdown]]></category>
+		<category><![CDATA[navigation]]></category>
+		<category><![CDATA[vue animations]]></category>
+		<guid isPermaLink="false">https://css-tricks.com/?p=325013</guid>
+
+					<description><![CDATA[<p>A table of contents is a list of links that allows you to quickly jump to specific sections of content on the same page. It benefits long-form content because it shows the user a handy overview of what content there is with a convenient way to get there.</p>
+<p>This tutorial will show you how to parse long Markdown text to HTML and then generate a list of links from the headings. After that, we will make use of the Intersection &#8230; <a href="https://css-tricks.com/parsing-markdown-into-an-automated-table-of-contents/" class="read-more">Read article <span class="screen-reader-text"> &#8220;Parsing Markdown into an Automated Table of Contents&#8221;</span></a></p>
+<hr />
+<p>The post <a rel="nofollow" href="https://css-tricks.com/parsing-markdown-into-an-automated-table-of-contents/">Parsing Markdown into an Automated Table of Contents</a> appeared first on <a rel="nofollow" href="https://css-tricks.com">CSS-Tricks</a>.</p>
+<p>You can support CSS-Tricks by being an <a href="https://css-tricks.com/product/mvp-supporter/">MVP Supporter</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>A table of contents is a list of links that allows you to quickly jump to specific sections of content on the same page. It benefits long-form content because it shows the user a handy overview of what content there is with a convenient way to get there.</p>
+
+
+
+<p>This tutorial will show you how to parse long Markdown text to HTML and then generate a list of links from the headings. After that, we will make use of the Intersection Observer API to find out which section is currently active, add a scrolling animation when a link is clicked, and finally, learn how Vue’s <code>&lt;transition-group&gt;</code> allow us to create a nice animated list depending on which section is currently active.</p>
+
+
+
+<span id="more-325013"></span>
+
+
+
+<h3 id="h-parsing-markdown">Parsing Markdown</h3>
+
+
+
+<p>On the web, text content is often delivered in the form of Markdown. If you haven’t used it, <a href="https://css-tricks.com/probably-blog-markdown/">there are lots of reasons</a> why Markdown is an excellent choice for text content. We are going to use a markdown parser called <a href="https://marked.js.org/">marked</a>, but <a href="https://css-tricks.com/choosing-right-markdown-parser/">any other parser</a> is also good.&nbsp;</p>
+
+
+
+<p>We will fetch our content from a Markdown file on GitHub. After we loaded our Markdown file, all we need to do is call the <code>marked(&lt;markdown&gt;, &lt;options&gt;)</code> function to parse the Markdown to HTML.</p>
+
+
+
+<pre rel="JavaScript" class="wp-block-csstricks-code-block language-javascript" data-line=""><code markup="tt">async function fetchAndParseMarkdown() {
+  const url = 'https://gist.githubusercontent.com/lisilinhart/e9dcf5298adff7c2c2a4da9ce2a3db3f/raw/2f1a0d47eba64756c22460b5d2919d45d8118d42/red_panda.md'
+  const response = await fetch(url)
+  const data = await response.text()
+  const htmlFromMarkdown = marked(data, { sanitize: true });
+  return htmlFromMarkdown
+}</code></pre>
+
+
+
+<p>After we fetch and parse our data, we will pass the parsed HTML to our DOM by replacing the content with <code>innerHTML</code>.</p>
+
+
+
+<pre rel="JavaScript" class="wp-block-csstricks-code-block language-javascript" data-line=""><code markup="tt">async function init() {
+  const $main = document.querySelector('#app');
+  const htmlContent = await fetchAndParseMarkdown();
+  $main.innerHTML = htmlContent
+}
+ 
+init();</code></pre>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_vYKKLzZ" src="//codepen.io/anon/embed/vYKKLzZ?height=450&amp;theme-id=1&amp;slug-hash=vYKKLzZ&amp;default-tab=result" height="450" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed vYKKLzZ" title="CodePen Embed vYKKLzZ" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<h3 id="h-generating-a-list-of-heading-links">Generating a list of heading links</h3>
+
+
+
+<p>Now that we’ve generated the HTML, we need to transform our headings into a clickable list of links. To find the headings, we will use the DOM function <code>querySelectorAll('h1, h2')</code>, which selects all <code>&lt;h1&gt;</code> and <code>&lt;h2&gt;</code> elements within our markdown container. Then we&#8217;ll run through the headings and extract the information we need: the text inside the tags, the depth (which is 1 or 2), and the element ID we can use to link to each respective heading.</p>
+
+
+
+<pre rel="JavaScript" class="wp-block-csstricks-code-block language-javascript" data-line=""><code markup="tt">function generateLinkMarkup($contentElement) {
+  const headings = [...$contentElement.querySelectorAll('h1, h2')]
+  const parsedHeadings = headings.map(heading => {
+    return {
+      title: heading.innerText,
+      depth: heading.nodeName.replace(/\D/g,''),
+      id: heading.getAttribute('id')
+    }
+  })
+  console.log(parsedHeadings)
+}</code></pre>
+
+
+
+<p>This snippet results in an array of elements that looks like this:</p>
+
+
+
+<pre rel="JavaScript" class="wp-block-csstricks-code-block language-javascript" data-line=""><code markup="tt">[
+  {title: "The Red Panda", depth: "1", id: "the-red-panda"},
+  {title: "About", depth: "2", id: "about"},
+  // ... 
+]</code></pre>
+
+
+
+<p>After getting the information we need from the heading elements, we can use ES6 template literals to generate the HTML elements we need for the table of contents.</p>
+
+
+
+<p>First, we loop through all the headings and create <code>&lt;li&gt;</code> elements. If we’re working with an <code>&lt;h2&gt;</code> with <code>depth: 2</code>, we will add an additional padding class, <code>.pl-4</code>, to indent them. That way, we can display <code>&lt;h2&gt;</code> elements as indented subheadings within the list of links.</p>
+
+
+
+<p>Finally, we join the array of <code>&lt;li&gt;</code> snippets and wrap it inside a <code>&lt;ul&gt;</code> element.</p>
+
+
+
+<pre rel="JavaScript" class="wp-block-csstricks-code-block language-javascript" data-line=""><code markup="tt">function generateLinkMarkup($contentElement) {
+  // ...
+  const htmlMarkup = parsedHeadings.map(h => `
+  &lt;li class="${h.depth > 1 ? 'pl-4' : ''}">
+    &lt;a href="#${h.id}">${h.title}&lt;/a>
+  &lt;/li>
+  `)
+  const finalMarkup = `&lt;ul>${htmlMarkup.join('')}&lt;/ul>`
+  return finalMarkup
+}</code></pre>
+
+
+
+<p>That’s all we need to generate our link list. Now, we will add the generated HTML to the DOM.</p>
+
+
+
+<pre rel="JavaScript" class="wp-block-csstricks-code-block language-javascript" data-line=""><code markup="tt">async function init() {
+  const $main = document.querySelector('#content');
+  const $aside = document.querySelector('#aside');
+  const htmlContent = await fetchAndParseMarkdown();
+  $main.innerHTML = htmlContent
+  const linkHtml = generateLinkMarkup($main);
+  $aside.innerHTML = linkHtml        
+}</code></pre>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_yLJJerd" src="//codepen.io/anon/embed/yLJJerd?height=450&amp;theme-id=1&amp;slug-hash=yLJJerd&amp;default-tab=result" height="450" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed yLJJerd" title="CodePen Embed yLJJerd" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<h3 id="h-adding-an-intersection-observer">Adding an Intersection Observer</h3>
+
+
+
+<p>Next, we need to find out which part of the content we’re currently reading. Intersection Observers are the perfect choice for this. <a href="https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API">MDN</a> defines Intersection Observer as follows:</p>
+
+
+
+<blockquote class="wp-block-quote"><p>The Intersection Observer API provides a way to asynchronously observe changes in the intersection of a target element with an ancestor element or with a top-level document&#8217;s viewport.</p></blockquote>
+
+
+
+<p>So, basically, they allow us to observe the intersection of an element with the viewport or one of its parent’s elements. To create one, we can call a new <code>IntersectionObserver()</code>, which creates a new observer instance. Whenever we create a new observer, we need to pass it a callback function that is called when the observer has observed an intersection of an element. Travis Almand has a <a href="https://css-tricks.com/an-explanation-of-how-the-intersection-observer-watches/">thorough explanation of the Intersection Observer</a> you can read, but what we need for now is a callback function as the first parameter and an options object as the second parameter.</p>
+
+
+
+<pre rel="JavaScript" class="wp-block-csstricks-code-block language-javascript" data-line=""><code markup="tt">function createObserver() {
+  const options = {
+    rootMargin: "0px 0px -200px 0px",
+    threshold: 1
+  }
+  const callback = () => { console.log("observed something") }
+  return new IntersectionObserver(callback, options)
+}</code></pre>
+
+
+
+<p>The observer is created, but nothing is being observed at the moment. We will need to observe the heading elements in our Markdown, so let’s loop over them and add them to the observer with the <code>observe()</code> function.</p>
+
+
+
+<pre rel="JavaScript" class="wp-block-csstricks-code-block language-javascript" data-line=""><code markup="tt">const observer = createObserver()
+$headings.map(heading => observer.observe(heading))</code></pre>
+
+
+
+<p>Since we want to update our list of links, we will pass it to the <code>observer</code> function as a <code>$links</code> parameter, because we don’t want to re-read the DOM on every update for performance reasons. In the <code>handleObserver</code> function, we find out whether a heading is intersecting with the viewport, then obtain its <code>id</code> and pass it to a function called <code>updateLinks</code> which handles updating the class of the links in our table of contents.</p>
+
+
+
+<pre rel="JavaScript" class="wp-block-csstricks-code-block language-javascript" data-line=""><code markup="tt">function handleObserver(entries, observer, $links) {
+  entries.forEach((entry)=> {
+    const { target, isIntersecting, intersectionRatio } = entry
+    if (isIntersecting &amp;&amp; intersectionRatio >= 1) {
+      const visibleId = `#${target.getAttribute('id')}`
+      updateLinks(visibleId, $links)
+    }
+  })
+}</code></pre>
+
+
+
+<p>Let’s write the function to update the list of links. We need to loop through all links, remove the <code>.is-active</code> class if it exists, and add it only to the element that’s actually active.</p>
+
+
+
+<pre rel="JavaScript" class="wp-block-csstricks-code-block language-javascript" data-line=""><code markup="tt">function updateLinks(visibleId, $links) {
+  $links.map(link => {
+    let href = link.getAttribute('href')
+    link.classList.remove('is-active')
+    if(href === visibleId) link.classList.add('is-active')
+  })
+}</code></pre>
+
+
+
+<p>The end of our <code>init()</code> function creates an observer, observes all the headings, and updates the links list so the active link is highlights when the observer notices a change.</p>
+
+
+
+<pre rel="JavaScript" class="wp-block-csstricks-code-block language-javascript" data-line=""><code markup="tt">async function init() {
+  // Parsing Markdown
+  const $aside = document.querySelector('#aside');
+ 
+  // Generating a list of heading links
+  const $headings = [...$main.querySelectorAll('h1, h2')];
+ 
+  // Adding an Intersection Observer
+  const $links = [...$aside.querySelectorAll('a')]
+  const observer = createObserver($links)
+  $headings.map(heading => observer.observe(heading))
+}</code></pre>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_NWrrNpV" src="//codepen.io/anon/embed/NWrrNpV?height=450&amp;theme-id=1&amp;slug-hash=NWrrNpV&amp;default-tab=result" height="450" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed NWrrNpV" title="CodePen Embed NWrrNpV" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<h3 id="h-scroll-to-section-animation">Scroll to section animation</h3>
+
+
+
+<p>The next part is to create a scrolling animation so that, when a link in the table of contents is clicked, the user is scrolled to the heading position rather abruptly jumping there. This is often called <a href="https://css-tricks.com/snippets/jquery/smooth-scrolling/">smooth scrolling</a>.</p>
+
+
+
+<p><a href="https://css-tricks.com/downsides-of-smooth-scrolling/">Scrolling animations can be harmful</a> if a user <a href="https://css-tricks.com/revisiting-prefers-reduced-motion-the-reduced-motion-media-query/">prefers reduced motion</a>, so we should only animate this scrolling behavior if the user hasn’t specified otherwise. With <code>window.matchMedia('(prefers-reduced-motion)')</code>, we can read the user preference and adapt our animation accordingly. That means we need a click event listener on each link. Since we need to scroll to the headings, we will also pass our list of <code>$headings</code> and the <code>motionQuery</code>.&nbsp;</p>
+
+
+
+<pre rel="JavaScript" class="wp-block-csstricks-code-block language-javascript" data-line=""><code markup="tt">const motionQuery = window.matchMedia('(prefers-reduced-motion)');
+ 
+$links.map(link => {
+  link.addEventListener("click", 
+    (evt) => handleLinkClick(evt, $headings, motionQuery)
+  )
+})</code></pre>
+
+
+
+<p>Let’s write our <code>handleLinkClick</code> function, which is called whenever a link is clicked. First, we need to prevent the default behavior of links, which would be to jump directly to the section. Then we’ll read the <code>href</code> attribute of the clicked link and find the heading with the corresponding <code>id</code> attribute. With a <code>tabindex</code> value of -1 and <code>focus()</code>, we can focus our heading to make the users aware of where they jumped to. Finally, we add the scrolling animation by calling <code>scroll()</code> on our window.&nbsp;</p>
+
+
+
+<p>Here is where our <code>motionQuery</code> comes in. If the user prefers reduced motion, the behavior will be <code>instant</code>; otherwise, it will be <code>smooth</code>. The <code>top</code> option adds a bit of scroll margin to the top of the headings to prevent them from sticking to the very top of the window.</p>
+
+
+
+<pre rel="JavaScript" class="wp-block-csstricks-code-block language-javascript" data-line=""><code markup="tt">function handleLinkClick(evt, $headings, motionQuery) {
+  evt.preventDefault()
+  let id = evt.target.getAttribute("href").replace('#', '')
+  let section = $headings.find(heading => heading.getAttribute('id') === id)
+  section.setAttribute('tabindex', -1)
+  section.focus()
+ 
+  window.scroll({
+    behavior: motionQuery.matches ? 'instant' : 'smooth',
+    top: section.offsetTop - 20
+  })
+}</code></pre>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_Pozzzmq" src="//codepen.io/anon/embed/Pozzzmq?height=450&amp;theme-id=1&amp;slug-hash=Pozzzmq&amp;default-tab=result" height="450" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed Pozzzmq" title="CodePen Embed Pozzzmq" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<h3 id="h-animate-the-list-of-links">Animate the list of links</h3>
+
+
+
+<p>For the last part, we will make use of Vue’s <code>&lt;transition-group&gt;</code>, which is very useful for <a href="https://vuejs.org/v2/guide/transitions.html%23List-Transitions">list transitions</a>. Here is Sarah Drasner’s excellent <a href="https://css-tricks.com/intro-to-vue-5-animations/">intro to Vue transitions</a> if you’ve never worked with them before. They are especially great because they provide us with animation lifecycle hooks with easy access to CSS animations.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" width="1200" height="600" src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2017/01/transition.png?resize=1200%2C600&#038;ssl=1" alt="" class="wp-image-250565" srcset="https://i0.wp.com/css-tricks.com/wp-content/uploads/2017/01/transition.png?w=1200&amp;ssl=1 1200w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2017/01/transition.png?resize=300%2C150&amp;ssl=1 300w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2017/01/transition.png?resize=1024%2C512&amp;ssl=1 1024w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2017/01/transition.png?resize=768%2C384&amp;ssl=1 768w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2017/01/transition.png?resize=1000%2C500&amp;ssl=1 1000w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /></figure>
+
+
+
+<p>Vue automatically attaches CSS classes for us when an element is added (<code>v-enter</code>) or removed (<code>v-leave</code>) from a list, and also with classes for when the animation is active (<code>v-enter-active</code> and <code>v-leave-active</code>). This is perfect for our case because we can vary the animation when subheadings are added or removed from our list. To use them, we will need wrap our <code>&lt;li&gt;</code> elements in our table of contents with an <code>&lt;transition-group&gt;</code> element. The name attribute of the <code>&lt;transition-group&gt;</code> defines how the CSS animations will be called, the tag attribute should be our parent <code>&lt;ul&gt;</code> element.</p>
+
+
+
+<pre rel="HTML" class="wp-block-csstricks-code-block language-markup" data-line=""><code markup="tt">&lt;transition-group name="list" tag="ul">
+  &lt;li v-for="(item, index) in activeHeadings" v-bind:key="item.id">
+    &lt;a :href="item.id">
+      {{ item.text }}
+    &lt;/a>
+  &lt;/li>
+&lt;/transition-group></code></pre>
+
+
+
+<p>Now we need to add the actual CSS transitions. Whenever an element is entering or leaving it, should animate from not visible (<code>opacity: 0</code>) and moved a bit to the bottom (<code>transform: translateY(10px)</code>).</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">.list-enter, .list-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}</code></pre>
+
+
+
+<p>Then we define what CSS property we want to animate. For performance reasons, we only want to animate the <code>transform</code> and the <code>opacity</code> properties. CSS allows us to chain the transitions with different timings: the <code>transform</code> should take 0.8 seconds and the fading only 0.4s.</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">.list-leave-active, .list-move {
+  transition: transform 0.8s, opacity 0.4s;
+}</code></pre>
+
+
+
+<p>Then we want to add a bit of a delay when a new element is added, so the subheadings fade in after the parent heading moved up or down. We can make use of the <code>v-enter-active</code> hook to do that:</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">.list-enter-active { 
+  transition: transform 0.8s ease 0.4s, opacity 0.4s ease 0.4s;
+}</code></pre>
+
+
+
+<p>Finally, we can add absolute positioning to the elements that are leaving to avoid sudden jumps when the other elements are animating:</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">.list-leave-active {
+  position: absolute;
+}</code></pre>
+
+
+
+<p>Since the scrolling interaction is fading elements out and in, it&#8217;s advisable to debounce the scrolling interaction in case someone is scrolling very quickly. By debouncing the interaction we can avoid unfinished animations overlapping other animations. You can either write your own debouncing function or simply use the lodash <a href="https://lodash.com/docs/4.17.15#debounce" target="_blank" rel="noreferrer noopener nofollow">debounce</a> function. For our example the simplest way to avoid unfinished animation updates  is to wrap the Intersection Observer callback function with a debounce function and pass the debounced function to the observer. </p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">const debouncedFunction = _.debounce(this.handleObserver)
+this.observer = new IntersectionObserver(debouncedFunction,options)</code></pre>
+
+
+
+<h3 id="h-here-s-the-final-demo">Here’s the final demo</h3>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_MWeKgGE" src="//codepen.io/anon/embed/MWeKgGE?height=450&amp;theme-id=1&amp;slug-hash=MWeKgGE&amp;default-tab=result" height="450" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed MWeKgGE" title="CodePen Embed MWeKgGE" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<p>Again, a table of contents is a great addition to any long-form content. It helps make clear what content is covered and provides quick access to specific content. Using the Intersection Observer and Vue’s list animations on top of it can help to make a table of contents even more interactive and even allow it to serve as an indication of reading progress. But even if you only add a list of links, it will already be a great feature for the user reading your content.</p>
+<hr />
+<p>The post <a rel="nofollow" href="https://css-tricks.com/parsing-markdown-into-an-automated-table-of-contents/">Parsing Markdown into an Automated Table of Contents</a> appeared first on <a rel="nofollow" href="https://css-tricks.com">CSS-Tricks</a>.</p>
+<p>You can support CSS-Tricks by being an <a href="https://css-tricks.com/product/mvp-supporter/">MVP Supporter</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://css-tricks.com/parsing-markdown-into-an-automated-table-of-contents/feed/</wfw:commentRss>
+			<slash:comments>2</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">325013</post-id>	</item>
+		<item>
+		<title>SVGBOX</title>
+		<link>https://svgbox.net/</link>
+					<comments>https://css-tricks.com/svgbox/#comments</comments>
+		
+		<dc:creator><![CDATA[Chris Coyier]]></dc:creator>
+		<pubDate>Fri, 13 Nov 2020 00:06:37 +0000</pubDate>
+				<category><![CDATA[Link]]></category>
+		<category><![CDATA[SVG]]></category>
+		<category><![CDATA[svg icons]]></category>
+		<guid isPermaLink="false">https://css-tricks.com/?p=325632</guid>
+
+					<description><![CDATA[<p>I&#8217;ve been saying for years that <a href="https://css-tricks.com/pretty-good-svg-icon-system/">a pretty good icon</a> system is just dropping in icons with inline <code>&#60;svg&#62;</code> where you need them. This is simple to do, offers full design control, has (generally) good performance, and means you aren&#8217;t smurfing around with caching and browser support stuff. </p>
+<p>Along those lines&#8230; using <code>&#60;img&#62;</code> isn&#8217;t the worst idea for icons either. It doesn&#8217;t offer as much fine-grained design control (although you <a href="https://css-tricks.com/solved-with-css-colorizing-svg-backgrounds/">can still <code>filter</code> them</a>) and arguably isn&#8217;t <em>quite</em> as &#8230; <a href="https://css-tricks.com/svgbox/" class="read-more">Read article <span class="screen-reader-text"> &#8220;SVGBOX&#8221;</span></a></p>
+<hr />
+<p>The post <a rel="nofollow" href="https://css-tricks.com/svgbox/">SVGBOX</a> appeared first on <a rel="nofollow" href="https://css-tricks.com">CSS-Tricks</a>.</p>
+<p>You can support CSS-Tricks by being an <a href="https://css-tricks.com/product/mvp-supporter/">MVP Supporter</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>I&#8217;ve been saying for years that <a href="https://css-tricks.com/pretty-good-svg-icon-system/">a pretty good icon</a> system is just dropping in icons with inline <code>&lt;svg&gt;</code> where you need them. This is simple to do, offers full design control, has (generally) good performance, and means you aren&#8217;t smurfing around with caching and browser support stuff. </p>
+
+
+
+<p>Along those lines&#8230; using <code>&lt;img&gt;</code> isn&#8217;t the worst idea for icons either. It doesn&#8217;t offer as much fine-grained design control (although you <a href="https://css-tricks.com/solved-with-css-colorizing-svg-backgrounds/">can still <code>filter</code> them</a>) and arguably isn&#8217;t <em>quite</em> as fast (since the images need to be fetched separately from the document), but it still has many of the same upsides as inline SVG icons. </p>
+
+
+
+<p>Shubham Jain has a project called <a href="https://svgbox.net/">SVGBOX</a> that offers icons-as-<code>&lt;img&gt;</code> and removes one of the design-control limitations by offering a URL parameter to change colors.</p>
+
+
+
+<span id="more-325632"></span>
+
+
+
+<p>Want an Instagram icon, but in red? Pass in <code>red</code>:</p>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_pobqLEb" src="//codepen.io/anon/embed/pobqLEb?height=250&amp;theme-id=1&amp;slug-hash=pobqLEb&amp;default-tab=html,result" height="250" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed pobqLEb" title="CodePen Embed pobqLEb" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<p> If you&#8217;re going to use a bunch of icons, the provided copy-and-paste code offers an &#8220;SVG sprite&#8221; version where the URL is like this:</p>
+
+
+
+<pre rel="HTML" class="wp-block-csstricks-code-block language-markup" data-line=""><code markup="tt">&lt;img src="//s.svgbox.net/social.svg?fill=805ad5#instagram"></code></pre>
+
+
+
+<p>That is going to increase the download weight of the icon (because it&#8217;s downloading all the icons from this set), but possibly be more efficient as it&#8217;s a single download not many. Hard to say if that&#8217;s more efficient or not these days, <a href="https://css-tricks.com/musings-on-http2-and-bundling/">with HTTP/2 around</a>. </p>
+
+
+
+<p>What&#8217;s interesting is the <code>#instagram</code> part at the end of the URL. Just a hash-link, right? No! Fancier! In SVG land, that can be <a href="https://css-tricks.com/svg-fragment-identifiers-work/">a fragment identifier</a>, meaning it will only show the bit of the SVG that matches the proper <code>&lt;view&gt;</code> element. Don&#8217;t see that every day.</p>
+<p><a href="https://svgbox.net/" title="Direct link to featured article">Direct Link to Article</a> &#8212; <a href="https://css-tricks.com/svgbox/">Permalink</a></p><hr />
+<p>The post <a rel="nofollow" href="https://css-tricks.com/svgbox/">SVGBOX</a> appeared first on <a rel="nofollow" href="https://css-tricks.com">CSS-Tricks</a>.</p>
+<p>You can support CSS-Tricks by being an <a href="https://css-tricks.com/product/mvp-supporter/">MVP Supporter</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://css-tricks.com/svgbox/feed/</wfw:commentRss>
+			<slash:comments>1</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">325632</post-id>	</item>
+		<item>
+		<title>How to Work With WordPress Block Patterns</title>
+		<link>https://theeventscalendar.com/blog/wordpress/how-to-work-with-wordpress-block-patterns/</link>
+					<comments>https://css-tricks.com/how-to-work-with-wordpress-block-patterns/#respond</comments>
+		
+		<dc:creator><![CDATA[Geoff Graham]]></dc:creator>
+		<pubDate>Thu, 12 Nov 2020 20:59:45 +0000</pubDate>
+				<category><![CDATA[Link]]></category>
+		<category><![CDATA[WordPress]]></category>
+		<category><![CDATA[WordPress blocks]]></category>
+		<guid isPermaLink="false">https://css-tricks.com/?p=325419</guid>
+
+					<description><![CDATA[<p>Just a little post I wrote up over at The Events Calendar blog. The idea is that a set of blocks can be grouped together in WordPress, then registered in a <code><a href="https://developer.wordpress.org/block-editor/developers/block-api/block-patterns/#register_block_pattern">register_block_pattern()</a></code> function that makes the group available to use as a &#8220;block pattern&#8221; in any page or post.</p>
+<p>Block patterns are becoming upper-class citizens in the WordPress block editor. They were announced without much fanfare in <a href="https://wordpress.org/news/2020/08/eckstine/">WordPress 5.5 back in August</a>, but have been given prominent real estate &#8230; <a href="https://css-tricks.com/how-to-work-with-wordpress-block-patterns/" class="read-more">Read article <span class="screen-reader-text"> &#8220;How to Work With WordPress Block Patterns&#8221;</span></a></p>
+<hr />
+<p>The post <a rel="nofollow" href="https://css-tricks.com/how-to-work-with-wordpress-block-patterns/">How to Work With WordPress Block Patterns</a> appeared first on <a rel="nofollow" href="https://css-tricks.com">CSS-Tricks</a>.</p>
+<p>You can support CSS-Tricks by being an <a href="https://css-tricks.com/product/mvp-supporter/">MVP Supporter</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Just a little post I wrote up over at The Events Calendar blog. The idea is that a set of blocks can be grouped together in WordPress, then registered in a <code><a href="https://developer.wordpress.org/block-editor/developers/block-api/block-patterns/#register_block_pattern">register_block_pattern()</a></code> function that makes the group available to use as a &#8220;block pattern&#8221; in any page or post.</p>
+
+
+
+<p>Block patterns are becoming upper-class citizens in the WordPress block editor. They were announced without much fanfare in <a href="https://wordpress.org/news/2020/08/eckstine/">WordPress 5.5 back in August</a>, but have been given prominent real estate in the block inserter with its own tab next to blocks, including 10 or so default ones right out of the box.</p>
+
+
+
+<span id="more-325419"></span>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" width="2220" height="1858" src="https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/wordpress-block-patterns-tab.png?resize=2220%2C1858&#038;ssl=1" alt="" class="wp-image-325422" srcset="https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/wordpress-block-patterns-tab.png?w=2220&amp;ssl=1 2220w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/wordpress-block-patterns-tab.png?resize=300%2C251&amp;ssl=1 300w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/wordpress-block-patterns-tab.png?resize=1024%2C857&amp;ssl=1 1024w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/wordpress-block-patterns-tab.png?resize=768%2C643&amp;ssl=1 768w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/wordpress-block-patterns-tab.png?resize=1536%2C1286&amp;ssl=1 1536w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/wordpress-block-patterns-tab.png?resize=2048%2C1714&amp;ssl=1 2048w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/wordpress-block-patterns-tab.png?resize=1000%2C837&amp;ssl=1 1000w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /><figcaption>Block patterns are sandwiched between Blocks and Reusable Blocks in the block inserter, which is a perfect metaphor for where it fits in the bigger picture of WordPress editing.</figcaption></figure>
+
+
+
+<p><a href="https://wordpress.org/news/2020/11/wordpress-5-6-beta-3/">If the 5.6 Beta 3 release notes are any indication</a>, then it looks like more patterns are on the way for default WordPress themes. And, of course, the block registration function has an <code><a href="https://developer.wordpress.org/block-editor/developers/block-api/block-patterns/#unregister_block_pattern">unregister_block_pattern()</a></code> companion should you need to opt out of any patterns.</p>
+
+
+
+<p>What I find interesting is how the blocks ecosystem is evolving. We started with a set of default blocks that can be inserted into a post. We got reusable blocks that provide a way to assemble a group of blocks with consistent content across all pages of posts. Now we have a way to do the same, but in a much more flexible and editable way. The differences are subtle, but the use cases couldn&#8217;t be more different. We&#8217;ve actually been using reusable blocks here at CSS-Tricks for post explanations, like this:</p>
+
+
+
+<p class="explanation">We drop some text in here when we think there&#8217;s something worth calling out or that warrants a little extra explanation.</p>
+
+
+
+<p>Any reusable block can be converted to a &#8220;regular&#8221; block. The styles are maintained but the content is not. That&#8217;s been our hack-y approach for speeding up our process around here, but now that block patterns are a thing, previous reusable blocks we&#8217;ve been using now make more sense as patterns.</p>
+<p><a href="https://theeventscalendar.com/blog/wordpress/how-to-work-with-wordpress-block-patterns/" title="Direct link to featured article">Direct Link to Article</a> &#8212; <a href="https://css-tricks.com/how-to-work-with-wordpress-block-patterns/">Permalink</a></p><hr />
+<p>The post <a rel="nofollow" href="https://css-tricks.com/how-to-work-with-wordpress-block-patterns/">How to Work With WordPress Block Patterns</a> appeared first on <a rel="nofollow" href="https://css-tricks.com">CSS-Tricks</a>.</p>
+<p>You can support CSS-Tricks by being an <a href="https://css-tricks.com/product/mvp-supporter/">MVP Supporter</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://css-tricks.com/how-to-work-with-wordpress-block-patterns/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">325419</post-id>	</item>
+		<item>
+		<title>How Film School Helped Me Make Better User Experiences</title>
+		<link>https://css-tricks.com/how-film-school-helped-me-make-better-user-experiences/</link>
+					<comments>https://css-tricks.com/how-film-school-helped-me-make-better-user-experiences/#comments</comments>
+		
+		<dc:creator><![CDATA[John Rhea]]></dc:creator>
+		<pubDate>Thu, 12 Nov 2020 15:46:57 +0000</pubDate>
+				<category><![CDATA[Article]]></category>
+		<category><![CDATA[animation]]></category>
+		<guid isPermaLink="false">https://css-tricks.com/?p=324773</guid>
+
+					<description><![CDATA[<p>Recently, I finished a sixty-day sprint where I <a href="https://css-tricks.com/lessons-learned-from-sixty-days-of-re-animating-zombies-with-hand-coded-css/">posted hand-coded zombie themed CSS animation every day</a>. I learned a lot, but it also took me back to film school and reminded me of so many things I learned about storytelling, cinematography, and art.</p>
+<p>Turns out that much of what I learned back then is relevant to websites, particularly web animations. Sarah Drasner made <a href="https://css-tricks.com/the-empty-box/">the connection between theater and development</a> and I thought I’d extend some of those ideas as &#8230; <a href="https://css-tricks.com/how-film-school-helped-me-make-better-user-experiences/" class="read-more">Read article <span class="screen-reader-text"> &#8220;How Film School Helped Me Make Better User Experiences&#8221;</span></a></p>
+<hr />
+<p>The post <a rel="nofollow" href="https://css-tricks.com/how-film-school-helped-me-make-better-user-experiences/">How Film School Helped Me Make Better User Experiences</a> appeared first on <a rel="nofollow" href="https://css-tricks.com">CSS-Tricks</a>.</p>
+<p>You can support CSS-Tricks by being an <a href="https://css-tricks.com/product/mvp-supporter/">MVP Supporter</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Recently, I finished a sixty-day sprint where I <a href="https://css-tricks.com/lessons-learned-from-sixty-days-of-re-animating-zombies-with-hand-coded-css/">posted hand-coded zombie themed CSS animation every day</a>. I learned a lot, but it also took me back to film school and reminded me of so many things I learned about storytelling, cinematography, and art.</p>
+
+
+
+<p>Turns out that much of what I learned back then is relevant to websites, particularly web animations. Sarah Drasner made <a href="https://css-tricks.com/the-empty-box/">the connection between theater and development</a> and I thought I’d extend some of those ideas as they relate to film.</p>
+
+
+
+<h3 id="h-a-story-makes-everything-more-engaging">A story makes everything more engaging</h3>
+
+
+
+<p>Humans love stories. I don’t need to quote you statistics on the billions of dollars spent on shows and books and games each year. If you can inject story into a website — especially when it comes to animation — it’ll be that much more interesting and appealing to your audience.</p>
+
+
+
+<p>There are many ways to define what a “story” is, but as far as things go for the web where animations can be quick or subtle, I think a story only requires two things: a <strong>character</strong> and an <strong>inciting incident</strong> (which is simply a plot point that brings the protagonist — or main character — into the story).</p>
+
+
+
+<p>Take the “Magical Oops” demo I made over at CodePen:</p>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_jOWLbbQ" src="//codepen.io/anon/embed/jOWLbbQ?height=600&amp;theme-id=1&amp;slug-hash=jOWLbbQ&amp;default-tab=result" height="600" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed jOWLbbQ" title="CodePen Embed jOWLbbQ" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<p>There’s not much going on, but there is a story. We have a character, the scientist, who invokes an inciting incident when he fires the shrink ray at the zombie. Instead of shrinking the zombie, the ray shrinks the zombie’s hat to reveal (and ultimately be worn by) a rabbit. Will you necessarily relate to those characters? Probably not, at least personally. But the fact that something happens to them is enough of an engaging hook to draw you in.</p>
+
+
+
+<p>Sure, I lean toward funny and silly storylines, but a story’s tone can be serious or any other number of things. </p>
+
+
+
+<p>I’m confident you can find a story that fits your site.</p>
+
+
+
+<h3 id="h-a-story-makes-everything-more-personable">A story makes everything more personable</h3>
+
+
+
+<p>Humans anthropomorphize anything and everything. You know exactly what that feels like if you’ve ever identified with characters in a Pixar movie, like “Toy Story” or “Inside Out.” The character you add doesn’t have to be a literal living thing or representative of a living thing. Heck, my stories are about the <em>undead</em>.</p>
+
+
+
+<p>How does that relate to the web? Let’s say your app congratulates users when completing a task, like Slack does when all unread threads have been cleared out.</p>
+
+
+
+<div class="wp-block-jetpack-slideshow aligncenter" data-effect="slide"><div class="wp-block-jetpack-slideshow_container swiper-container"><ul class="wp-block-jetpack-slideshow_swiper-wrapper swiper-wrapper"><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img loading="lazy" width="2552" height="1750" alt="" class="wp-block-jetpack-slideshow_image wp-image-324777" data-id="324777" src="https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.56-AM.png?resize=2552%2C1750&#038;ssl=1" srcset="https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.56-AM.png?w=2552&amp;ssl=1 2552w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.56-AM.png?resize=300%2C206&amp;ssl=1 300w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.56-AM.png?resize=1024%2C702&amp;ssl=1 1024w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.56-AM.png?resize=768%2C527&amp;ssl=1 768w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.56-AM.png?resize=1536%2C1053&amp;ssl=1 1536w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.56-AM.png?resize=2048%2C1404&amp;ssl=1 2048w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.56-AM.png?resize=1000%2C686&amp;ssl=1 1000w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img loading="lazy" width="2552" height="1750" alt="" class="wp-block-jetpack-slideshow_image wp-image-324775" data-id="324775" src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.40-AM.png?resize=2552%2C1750&#038;ssl=1" srcset="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.40-AM.png?w=2552&amp;ssl=1 2552w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.40-AM.png?resize=300%2C206&amp;ssl=1 300w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.40-AM.png?resize=1024%2C702&amp;ssl=1 1024w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.40-AM.png?resize=768%2C527&amp;ssl=1 768w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.40-AM.png?resize=1536%2C1053&amp;ssl=1 1536w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.40-AM.png?resize=2048%2C1404&amp;ssl=1 2048w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.40-AM.png?resize=1000%2C686&amp;ssl=1 1000w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img loading="lazy" width="2552" height="1750" alt="" class="wp-block-jetpack-slideshow_image wp-image-324774" data-id="324774" src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.28-AM.png?resize=2552%2C1750&#038;ssl=1" srcset="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.28-AM.png?w=2552&amp;ssl=1 2552w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.28-AM.png?resize=300%2C206&amp;ssl=1 300w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.28-AM.png?resize=1024%2C702&amp;ssl=1 1024w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.28-AM.png?resize=768%2C527&amp;ssl=1 768w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.28-AM.png?resize=1536%2C1053&amp;ssl=1 1536w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.28-AM.png?resize=2048%2C1404&amp;ssl=1 2048w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.28-AM.png?resize=1000%2C686&amp;ssl=1 1000w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img loading="lazy" width="2552" height="1750" alt="" class="wp-block-jetpack-slideshow_image wp-image-324780" data-id="324780" src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.10-PM.png?resize=2552%2C1750&#038;ssl=1" srcset="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.10-PM.png?w=2552&amp;ssl=1 2552w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.10-PM.png?resize=300%2C206&amp;ssl=1 300w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.10-PM.png?resize=1024%2C702&amp;ssl=1 1024w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.10-PM.png?resize=768%2C527&amp;ssl=1 768w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.10-PM.png?resize=1536%2C1053&amp;ssl=1 1536w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.10-PM.png?resize=2048%2C1404&amp;ssl=1 2048w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.10-PM.png?resize=1000%2C686&amp;ssl=1 1000w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img loading="lazy" width="2552" height="1750" alt="" class="wp-block-jetpack-slideshow_image wp-image-324776" data-id="324776" src="https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.45-AM.png?resize=2552%2C1750&#038;ssl=1" srcset="https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.45-AM.png?w=2552&amp;ssl=1 2552w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.45-AM.png?resize=300%2C206&amp;ssl=1 300w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.45-AM.png?resize=1024%2C702&amp;ssl=1 1024w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.45-AM.png?resize=768%2C527&amp;ssl=1 768w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.45-AM.png?resize=1536%2C1053&amp;ssl=1 1536w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.45-AM.png?resize=2048%2C1404&amp;ssl=1 2048w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-11.59.45-AM.png?resize=1000%2C686&amp;ssl=1 1000w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img loading="lazy" width="2552" height="1750" alt="" class="wp-block-jetpack-slideshow_image wp-image-324781" data-id="324781" src="https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.14-PM.png?resize=2552%2C1750&#038;ssl=1" srcset="https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.14-PM.png?w=2552&amp;ssl=1 2552w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.14-PM.png?resize=300%2C206&amp;ssl=1 300w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.14-PM.png?resize=1024%2C702&amp;ssl=1 1024w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.14-PM.png?resize=768%2C527&amp;ssl=1 768w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.14-PM.png?resize=1536%2C1053&amp;ssl=1 1536w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.14-PM.png?resize=2048%2C1404&amp;ssl=1 2048w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.14-PM.png?resize=1000%2C686&amp;ssl=1 1000w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img loading="lazy" width="2552" height="1750" alt="" class="wp-block-jetpack-slideshow_image wp-image-324778" data-id="324778" src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.01-PM.png?resize=2552%2C1750&#038;ssl=1" srcset="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.01-PM.png?w=2552&amp;ssl=1 2552w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.01-PM.png?resize=300%2C206&amp;ssl=1 300w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.01-PM.png?resize=1024%2C702&amp;ssl=1 1024w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.01-PM.png?resize=768%2C527&amp;ssl=1 768w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.01-PM.png?resize=1536%2C1053&amp;ssl=1 1536w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.01-PM.png?resize=2048%2C1404&amp;ssl=1 2048w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.01-PM.png?resize=1000%2C686&amp;ssl=1 1000w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img loading="lazy" width="2552" height="1750" alt="" class="wp-block-jetpack-slideshow_image wp-image-324779" data-id="324779" src="https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.06-PM.png?resize=2552%2C1750&#038;ssl=1" srcset="https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.06-PM.png?w=2552&amp;ssl=1 2552w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.06-PM.png?resize=300%2C206&amp;ssl=1 300w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.06-PM.png?resize=1024%2C702&amp;ssl=1 1024w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.06-PM.png?resize=768%2C527&amp;ssl=1 768w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.06-PM.png?resize=1536%2C1053&amp;ssl=1 1536w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.06-PM.png?resize=2048%2C1404&amp;ssl=1 2048w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-29-at-12.00.06-PM.png?resize=1000%2C686&amp;ssl=1 1000w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /></figure></li></ul><a class="wp-block-jetpack-slideshow_button-prev swiper-button-prev swiper-button-white" role="button"></a><a class="wp-block-jetpack-slideshow_button-next swiper-button-next swiper-button-white" role="button"></a><a aria-label="Pause Slideshow" class="wp-block-jetpack-slideshow_button-pause" role="button"></a><div class="wp-block-jetpack-slideshow_pagination swiper-pagination swiper-pagination-white"></div></div></div>
+
+
+
+<p>The point is to add some personality and intentionality to whatever movement you’re creating. It’s also about bringing the story — which is the user task of reviewing unread messages — to a natural (and, in this case, a happy) conclusion. That sort of feedback is not only informative, but something that makes the user part of the story in a personable way. </p>
+
+
+
+<p>If a viewer can understand the subject of the story, they’ll get why something moves or changes. They&#8217;ll see it as a character — even if the subject is the user. That’s what makes something personable. (You got it! Here&#8217;s a pony. &#x1f434;)</p>
+
+
+
+<p>Watch for the human’s smirk in my “Undead Seat Driver” pen:</p>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_zYrwMLw" src="//codepen.io/anon/embed/zYrwMLw?height=450&amp;theme-id=1&amp;slug-hash=zYrwMLw&amp;default-tab=result" height="450" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed zYrwMLw" title="CodePen Embed zYrwMLw" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<p>The smirk introduces an emotional element that further adds to the story by making the main character more relatable.</p>
+
+
+
+<h3 id="h-direct-attention-with-visual-depth">Direct attention with visual depth</h3>
+
+
+
+<p>One of the greatest zombie movies of all time, Citizen Kane, reached popularity for a variety of reasons. It’s a wonderful story with great acting, for one, but there’s something else you might not catch when viewing the movie today that was revolutionary at the time: <strong>deep focus photography</strong>. Deep focus allowed things in the foreground and the background and the middle ground to be in focus all at the same time. Before this, it was only possible to use one focal point at a time. Deep focus made the film almost feel like it was in 3D.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" width="1200" height="1000" src="https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/deepfocus.jpg?resize=1200%2C1000&#038;ssl=1" alt="" class="wp-image-324832" srcset="https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/deepfocus.jpg?w=1200&amp;ssl=1 1200w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/deepfocus.jpg?resize=300%2C250&amp;ssl=1 300w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/deepfocus.jpg?resize=1024%2C853&amp;ssl=1 1024w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/deepfocus.jpg?resize=768%2C640&amp;ssl=1 768w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/10/deepfocus.jpg?resize=1000%2C833&amp;ssl=1 1000w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /></figure>
+
+
+
+<p>We’re not constrained by camera lenses on the web (well, aside from embedded media I suppose), but one thing that makes the deep focus photography of Citizen Kane work so well is that director Orson Welles was able to point a viewer’s attention at different planes at different times. He sometimes even had multiple things happening in multiple planes, but this was always a choice.&nbsp;</p>
+
+
+
+<p>Working with deep focus on the web has actually been happening for some time, even if it isn’t called that. Think of parallax scrolling and how it adds depth between backgrounds. There’s also the popular modal pattern where an element dominates the foreground while the background is either dimmed or blurred out.</p>
+
+
+
+<p>That was the idea behind my “Hey, Hey, Hey!” pen that starts with a character in focus on a faraway plane who gives way to a zombie that appears in the foreground:</p>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_wvaorrM" src="//codepen.io/anon/embed/wvaorrM?height=450&amp;theme-id=1&amp;slug-hash=wvaorrM&amp;default-tab=result" height="450" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed wvaorrM" title="CodePen Embed wvaorrM" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<p>The opposite sort of thing occurs here in my “Nobody Here But Us Humans… 2” pen:</p>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_BajxGwg" src="//codepen.io/anon/embed/BajxGwg?height=450&amp;theme-id=1&amp;slug-hash=BajxGwg&amp;default-tab=result" height="450" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed BajxGwg" title="CodePen Embed BajxGwg" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<p>Try to think of a website as a 3D space and you’ll open up possibilities you may have never considered before. And while there are 3D transforms that work right now in your browser, that isn’t the only thing I’m talking about. There are tons of ways to “fake” a 3D effect using shading, shadows, relative size, blurs or other types of distortion.</p>
+
+
+
+<p>For example, I used a stacking order to mimic a multi-dimensional space in my “Finally, alone with my sandwich&#8230;” pen. Notice how the human’s head rotation lends a little more credibility to the effect:</p>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_dyGpBJx" src="//codepen.io/anon/embed/dyGpBJx?height=450&amp;theme-id=1&amp;slug-hash=dyGpBJx&amp;default-tab=result" height="450" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed dyGpBJx" title="CodePen Embed dyGpBJx" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<h3 id="h-take-animation-to-the-next-level-with-scenes">Take animation to the next level with scenes</h3>
+
+
+
+<p>Some of the work I’m proudest of are those where I went beyond silly characters doing silly things (although I am proud of that as well). There are two animations in particular that come to mind.</p>
+
+
+
+<p>The first is what I call “Zombie Noon 2”:</p>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_ZEQLxOe" src="//codepen.io/anon/embed/ZEQLxOe?height=700&amp;theme-id=1&amp;slug-hash=ZEQLxOe&amp;default-tab=result" height="700" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed ZEQLxOe" title="CodePen Embed ZEQLxOe" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<p>The reason this one stands out to me is how the camera suddenly (and possibly as an unexpected plot twist) turns the viewer into a character in the story. Once the Zombie’s shots are fired, the camera rolls over, essentially revealing that it’s you who has been shot.</p>
+
+
+
+<p>The second piece that comes to mind is called “Lunch (at) Noon” :</p>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_LYGxGvZ" src="//codepen.io/anon/embed/LYGxGvZ?height=750&amp;theme-id=1&amp;slug-hash=LYGxGvZ&amp;default-tab=result" height="750" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed LYGxGvZ" title="CodePen Embed LYGxGvZ" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<p>(I apparently got some middle school glee out of shooting hats off zombies&#8217;s heads. *shrugs* Being easily amused is cheap entertainment.)</p>
+
+
+
+<p>Again, the camera puts things in a sort of first-person perspective where we’re facing a zombie chef who gets his hat shot off. The twist comes when a Ratatouille-like character is revealed under the hat, triggering a new scene by zooming in on him. Watch his eyes narrow when the focus turns to him.</p>
+
+
+
+<p>Using the “camera” is an awesome way to bring an animation to the next level; it forces viewer participation. That doesn’t mean the camera should swoop and fly and zoom at every turn and with every animation, but switching from a 2D to a 3D perspective — when done well and done to deepen the experience — can enhance &nbsp;a user’s experience with it.</p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<p>So, as it turns out, my film school education really has paid off! There’s so much of it that directly applies to the web, and hopefully you see the same correlations that I’ve discovered.</p>
+
+
+
+<p>I’d be remiss if I didn’t call out something important in this article. While I think borrowing concepts from stories and storytelling is really awesome and can be the difference between good and great experiences, they aren’t the right call in every situation. Like, what’s the point of putting a user through a story-like experience on a terms and conditions page? Legal content is typically already a somewhat tense read, so adding more tension may not be the best bet. But, hey, if you’re able to introduce a story that relieves the tension of that context, then by all means! and, let&#8217;s not forget about <a href="https://css-tricks.com/revisiting-prefers-reduced-motion-the-reduced-motion-media-query/">users who prefer reduced motion</a>.</p>
+
+
+
+<p>Bottom line: These ideas aren’t silver bullets for all cases. They&#8217;re tools to help you think about how you can take your site and your animations the extra mile and enhance a user’s experience in a pleasant way.</p>
+<hr />
+<p>The post <a rel="nofollow" href="https://css-tricks.com/how-film-school-helped-me-make-better-user-experiences/">How Film School Helped Me Make Better User Experiences</a> appeared first on <a rel="nofollow" href="https://css-tricks.com">CSS-Tricks</a>.</p>
+<p>You can support CSS-Tricks by being an <a href="https://css-tricks.com/product/mvp-supporter/">MVP Supporter</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://css-tricks.com/how-film-school-helped-me-make-better-user-experiences/feed/</wfw:commentRss>
+			<slash:comments>1</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">324773</post-id>	</item>
+		<item>
+		<title>A Spreadsheet Importer You’ll Enjoy Using</title>
+		<link>https://css-tricks.com/a-spreadsheet-importer-youll-enjoy-using/</link>
+					<comments>https://css-tricks.com/a-spreadsheet-importer-youll-enjoy-using/#respond</comments>
+		
+		<dc:creator><![CDATA[Chris Coyier]]></dc:creator>
+		<pubDate>Thu, 12 Nov 2020 15:46:36 +0000</pubDate>
+				<category><![CDATA[Sponsored]]></category>
+		<guid isPermaLink="false">https://css-tricks.com/?p=325379</guid>
+
+					<description><![CDATA[<p>A great developer tool takes a painful task that would normally be a developer’s entire job, and makes it a pleasure to do. As a personal example, I’ve needed to build an image uploading experience many times in the past. I’ve hand-coded them and experienced far too much pain doing that. Then I used <a href="https://www.filestack.com/">Filestack</a> and it made everything not only much easier, but better.</p>
+<p>You know what’s <em>way harder</em> than image uploads? Spreadsheet imports. Why? Because when users are &#8230; <a href="https://css-tricks.com/a-spreadsheet-importer-youll-enjoy-using/" class="read-more">Read article <span class="screen-reader-text"> &#8220;A Spreadsheet Importer You&#8217;ll Enjoy Using&#8221;</span></a></p>
+<hr />
+<p>The post <a rel="nofollow" href="https://css-tricks.com/a-spreadsheet-importer-youll-enjoy-using/">A Spreadsheet Importer You&#8217;ll Enjoy Using</a> appeared first on <a rel="nofollow" href="https://css-tricks.com">CSS-Tricks</a>.</p>
+<p>You can support CSS-Tricks by being an <a href="https://css-tricks.com/product/mvp-supporter/">MVP Supporter</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>A great developer tool takes a painful task that would normally be a developer’s entire job, and makes it a pleasure to do. As a personal example, I’ve needed to build an image uploading experience many times in the past. I’ve hand-coded them and experienced far too much pain doing that. Then I used <a href="https://www.filestack.com/">Filestack</a> and it made everything not only much easier, but better.</p>
+
+
+
+<p>You know what’s <em>way harder</em> than image uploads? Spreadsheet imports. Why? Because when users are uploading a spreadsheet, they aren’t just hosting the file — they are importing the data inside the spreadsheet, and that is a much trickier project. Fields need to get mapped to the right place. Bad data needs to be fixed in the back end. And everything needs to be fast and intuitive. Enter <a href="https://srv.buysellads.com/ads/long/x/TFI3ZZLXTTTTTTD7ACWHOTTTTTTZWSMVZATTTTTTL4RBAUYTTTTTTBDW5JYFC5JGHRINPR35K7NC4RDC2HNCPZIQ2AUNCASIHMBF6BZD227IORZW2MGUCSSM5QJNPGZEKH7FVSIH5VIFPRD2ZRNNP7DQ5MNIBYSG27BCPSIW67BUVSPXK2ENBAD32HINAGZD527LBRDL2HJNNA72K2UNARDH27BHOAQWHW7DTKJEHMYCOAIWKHN4BADL2RNNORDQ2RU4KRZW2MGNCSS55JLNAR3R52YCOSII2R7CP732KH7FVBZD2JLLKRZW2MGUV7ZL2WOU67ZN2HLU5">Flatfile</a>. With their core product, <a href="https://srv.buysellads.com/ads/long/x/TFI3ZZLXTTTTTTD7ACWHOTTTTTTZWSMVZATTTTTTL4RBAUYTTTTTTBDW5JYFC5JGHRINPR35K7NC4RDC2HNCPZIQ2AUNCASIHMBF6BZD227IORZW2MGUCSSM5QJNPGZEKH7FVSIH5VIFPRD2ZRNNP7DQ5MNIBYSG27BCPSIW67BUVSPXK2ENBAD32HINAGZD527LBRDL2HJNNA72K2UNARDH27BHOAQWHW7DTKJEHMYCOAIWKHN4BADL2RNNORDQ2RU4KRZW2MGNCSS55JLNAR3R52YCOSII2R7CP732KH7FVBZD2JLLKRZW2MGUV7ZL2WOU67ZN2HLU5">Portal</a>, you’ll never have to build your own spreadsheet importer again, thank god.</p>
+
+
+
+<span id="more-325379"></span>
+
+
+
+<p>Allow me to walk you though this.</p>
+
+
+
+<h3 id="h-your-user-has-some-data">Your user has some data.</h3>
+
+
+
+<p>Let’s say you’re building a web software product that does some super useful thing. Who knows, say, it helps with automated marketing emails or something. Your customers want to import some of their customer data into your app so they can get started using it. They might have this data in a spreadsheet (e.g. a <code>.csv</code>  or <code>.xls</code> file) because spreadsheets are a universal data transfer format (e.g. maybe the customer exported their data from another product).</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" width="2162" height="1336" src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.22.12-PM.png?resize=2162%2C1336&#038;ssl=1" alt="" class="wp-image-325380" srcset="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.22.12-PM.png?w=2162&amp;ssl=1 2162w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.22.12-PM.png?resize=300%2C185&amp;ssl=1 300w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.22.12-PM.png?resize=1024%2C633&amp;ssl=1 1024w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.22.12-PM.png?resize=768%2C475&amp;ssl=1 768w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.22.12-PM.png?resize=1536%2C949&amp;ssl=1 1536w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.22.12-PM.png?resize=2048%2C1266&amp;ssl=1 2048w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.22.12-PM.png?resize=1000%2C618&amp;ssl=1 1000w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /></figure>
+
+
+
+<h3 id="h-you-need-to-build-an-import-experience">You need to build an import experience.</h3>
+
+
+
+<p>Your web app won’t be nearly as useful and valuable to your customers if they can’t move their data into it quickly and easily. So you set out to build an intuitive import experience. You’re a developer, so you can do this. You build a file upload component. You build a file parser. You write docs about how it all works and your importer’s data expectations. Well, that’s how it <em>could</em> go, but you’re looking at weeks if not longer of development time, and the end result will be (I promise) lackluster. It probably won’t have robust error handling. It won’t have a polished UI. It won’t have countless hours of UX refinements from testing the complete experience.</p>
+
+
+
+<h3 id="h-time-to-outsource-it">Time to outsource it.</h3>
+
+
+
+<p>What if, instead of all that work, we could just write…</p>
+
+
+
+<pre rel="HTML" class="wp-block-csstricks-code-block language-markup" data-line=""><code markup="tt">&lt;FileImporter config={config} /></code></pre>
+
+
+
+<p>That&#8217;s basically what <a href="https://srv.buysellads.com/ads/long/x/TFI3ZZLXTTTTTTD7ACWHOTTTTTTZWSMVZATTTTTTL4RBAUYTTTTTTBDW5JYFC5JGHRINPR35K7NC4RDC2HNCPZIQ2AUNCASIHMBF6BZD227IORZW2MGUCSSM5QJNPGZEKH7FVSIH5VIFPRD2ZRNNP7DQ5MNIBYSG27BCPSIW67BUVSPXK2ENBAD32HINAGZD527LBRDL2HJNNA72K2UNARDH27BHOAQWHW7DTKJEHMYCOAIWKHN4BADL2RNNORDQ2RU4KRZW2MGNCSS55JLNAR3R52YCOSII2R7CP732KH7FVBZD2JLLKRZW2MGUV7ZL2WOU67ZN2HLU5">Flatfile</a> does! <a href="https://codepen.io/chriscoyier/pen/YzWJdQN">Here&#8217;s a demo right here</a>, that&#8217;s got enough complexity for you to really see what it&#8217;s capable of:</p>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_YzWJdQN" src="//codepen.io/anon/embed/YzWJdQN?height=450&amp;theme-id=1&amp;slug-hash=YzWJdQN&amp;default-tab=result" height="450" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed YzWJdQN" title="CodePen Embed YzWJdQN" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<p>Before you ask… is it secure? Yes. GDPR compliant? Yes. SOC 2 Type 1? Yes. HIPAA? Yes. Can you run it on your own boxes? Yes.</p>
+
+
+
+<h3 id="h-here-s-an-elegant-import-experience"><strong>Here’s an elegant import experience.</strong></h3>
+
+
+
+<p>The user clicks a button and they get a full-page import experience where they can import their spreadsheet or manually enter data.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" width="2744" height="1390" src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.47.11-PM.png?resize=2744%2C1390&#038;ssl=1" alt="" class="wp-image-325382" srcset="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.47.11-PM.png?w=2744&amp;ssl=1 2744w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.47.11-PM.png?resize=300%2C152&amp;ssl=1 300w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.47.11-PM.png?resize=1024%2C519&amp;ssl=1 1024w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.47.11-PM.png?resize=768%2C389&amp;ssl=1 768w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.47.11-PM.png?resize=1536%2C778&amp;ssl=1 1536w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.47.11-PM.png?resize=2048%2C1037&amp;ssl=1 2048w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.47.11-PM.png?resize=1000%2C507&amp;ssl=1 1000w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /></figure>
+
+
+
+<p>Your app will have requirements for what kind of data it is expecting, which you’ll configure. This importer will then look at the format of the customer’s data, and allow them to map over the fields you need, correctly, the first time.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" width="2736" height="1476" src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.50.07-PM.png?resize=2736%2C1476&#038;ssl=1" alt="" class="wp-image-325384" srcset="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.50.07-PM.png?w=2736&amp;ssl=1 2736w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.50.07-PM.png?resize=300%2C162&amp;ssl=1 300w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.50.07-PM.png?resize=1024%2C552&amp;ssl=1 1024w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.50.07-PM.png?resize=768%2C414&amp;ssl=1 768w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.50.07-PM.png?resize=1536%2C829&amp;ssl=1 1536w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.50.07-PM.png?resize=2048%2C1105&amp;ssl=1 2048w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.50.07-PM.png?resize=1000%2C539&amp;ssl=1 1000w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /></figure>
+
+
+
+<p>Uh oh! There is some missing data. Flatfile does a wonderful job of highlighting exactly what that is. The customer has the option to fix it during an import. No need to re-import their CSV file. Users really have an intuitive opportunity to clean up the data and understand exactly what is going on. This would be extremely non-trivial to build yourself.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" width="1224" height="696" src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.51.37-PM.png?resize=1224%2C696&#038;ssl=1" alt="" class="wp-image-325385" srcset="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.51.37-PM.png?w=1224&amp;ssl=1 1224w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.51.37-PM.png?resize=300%2C171&amp;ssl=1 300w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.51.37-PM.png?resize=1024%2C582&amp;ssl=1 1024w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.51.37-PM.png?resize=768%2C437&amp;ssl=1 768w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.51.37-PM.png?resize=1000%2C569&amp;ssl=1 1000w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /></figure>
+
+
+
+<p>They can fix the problems, or just discard the bad data and proceed with importing.</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-full"><img loading="lazy" width="1260" height="634" src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.53.34-PM.png?resize=1260%2C634&#038;ssl=1" alt="" class="wp-image-325386" srcset="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.53.34-PM.png?w=1260&amp;ssl=1 1260w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.53.34-PM.png?resize=300%2C151&amp;ssl=1 300w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.53.34-PM.png?resize=1024%2C515&amp;ssl=1 1024w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.53.34-PM.png?resize=768%2C386&amp;ssl=1 768w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.53.34-PM.png?resize=1000%2C503&amp;ssl=1 1000w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /></figure></div>
+
+
+
+<p>And you’ll get nice clean JSON data out of that interaction for your app to use.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" width="1510" height="754" src="https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.55.02-PM.png?resize=1510%2C754&#038;ssl=1" alt="" class="wp-image-325387" srcset="https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.55.02-PM.png?w=1510&amp;ssl=1 1510w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.55.02-PM.png?resize=300%2C150&amp;ssl=1 300w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.55.02-PM.png?resize=1024%2C511&amp;ssl=1 1024w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.55.02-PM.png?resize=768%2C383&amp;ssl=1 768w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-09-at-1.55.02-PM.png?resize=1000%2C499&amp;ssl=1 1000w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /></figure>
+
+
+
+<h3 id="h-build-vs-buy">Build vs. buy?</h3>
+
+
+
+<p>You always gotta weigh these things when you’re building software products. In my experience, you better be really damn sure when you pick build instead of buy. I heavily weigh toward buy, particularly when what I’m buying is secondary to what I’m building. I feel that way because I made the mistake of building far too many times.</p>
+
+
+
+<p>Most of us aren’t building uploader apps — we’re building some app that just needs customers to import data. I’d much rather let someone else get that part right while I get my part right. Me? I’d use <a href="https://srv.buysellads.com/ads/long/x/TFI3ZZLXTTTTTTD7ACWHOTTTTTTZWSMVZATTTTTTL4RBAUYTTTTTTBDW5JYFC5JGHRINPR35K7NC4RDC2HNCPZIQ2AUNCASIHMBF6BZD227IORZW2MGUCSSM5QJNPGZEKH7FVSIH5VIFPRD2ZRNNP7DQ5MNIBYSG27BCPSIW67BUVSPXK2ENBAD32HINAGZD527LBRDL2HJNNA72K2UNARDH27BHOAQWHW7DTKJEHMYCOAIWKHN4BADL2RNNORDQ2RU4KRZW2MGNCSS55JLNAR3R52YCOSII2R7CP732KH7FVBZD2JLLKRZW2MGUV7ZL2WOU67ZN2HLU5">Flatfile</a> for spreadsheet importing in a heartbeat.</p>
+<hr />
+<p>The post <a rel="nofollow" href="https://css-tricks.com/a-spreadsheet-importer-youll-enjoy-using/">A Spreadsheet Importer You&#8217;ll Enjoy Using</a> appeared first on <a rel="nofollow" href="https://css-tricks.com">CSS-Tricks</a>.</p>
+<p>You can support CSS-Tricks by being an <a href="https://css-tricks.com/product/mvp-supporter/">MVP Supporter</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://css-tricks.com/a-spreadsheet-importer-youll-enjoy-using/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">325379</post-id>	</item>
+		<item>
+		<title>My WordPress Comments Wishlist</title>
+		<link>https://css-tricks.com/my-wordpress-comments-wishlist/</link>
+					<comments>https://css-tricks.com/my-wordpress-comments-wishlist/#comments</comments>
+		
+		<dc:creator><![CDATA[Chris Coyier]]></dc:creator>
+		<pubDate>Thu, 12 Nov 2020 00:48:10 +0000</pubDate>
+				<category><![CDATA[Article]]></category>
+		<category><![CDATA[comments]]></category>
+		<category><![CDATA[jetpack]]></category>
+		<category><![CDATA[WordPress]]></category>
+		<guid isPermaLink="false">https://css-tricks.com/?p=325042</guid>
+
+					<description><![CDATA[<p>A built-in commenting system is one of the reasons people reach for WordPress (and often stay there long-term). While I do think having a comment system is compelling (and as big of a fan of building on WordPress as I am), I find the comments system on WordPress quite crusty. It needs some love! There is so much more potential there! <strong>Here&#8217;s my list.</strong></p>
+<p class="is-style-explanation">I don&#8217;t have any inside WordPress knowledge to inform me about how difficult any of these &#8230; <a href="https://css-tricks.com/my-wordpress-comments-wishlist/" class="read-more">Read article <span class="screen-reader-text"> &#8220;My WordPress Comments Wishlist&#8221;</span></a></p>
+<hr />
+<p>The post <a rel="nofollow" href="https://css-tricks.com/my-wordpress-comments-wishlist/">My WordPress Comments Wishlist</a> appeared first on <a rel="nofollow" href="https://css-tricks.com">CSS-Tricks</a>.</p>
+<p>You can support CSS-Tricks by being an <a href="https://css-tricks.com/product/mvp-supporter/">MVP Supporter</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>A built-in commenting system is one of the reasons people reach for WordPress (and often stay there long-term). While I do think having a comment system is compelling (and as big of a fan of building on WordPress as I am), I find the comments system on WordPress quite crusty. It needs some love! There is so much more potential there! <strong>Here&#8217;s my list.</strong></p>
+
+
+
+<span id="more-325042"></span>
+
+
+
+<p class="is-style-explanation">I don&#8217;t have any inside WordPress knowledge to inform me about how difficult any of these ideas would be, what other things they may affect, and what conversations have already been had around them. While I personally like these ideas, I&#8217;m fully aware that software decisions, particularly at this scale, are not lightly made. So all that said, this wishlist is almost like a design exercise and could be considered user feedback.</p>
+
+
+
+<h3 id="h-comments-should-be-user-owned-and-editable">Comments should be user-owned and editable.</h3>
+
+
+
+<div class="wp-block-columns">
+<div class="wp-block-column">
+<p>I find it highly weird that a logged-in user can leave a comment, but the comment isn&#8217;t &#8220;owned&#8221; by them. There doesn&#8217;t seem to be a direct connection between their account and the comment they just left. Seems like if you actually have an account, that would be an obvious thing to attach. People leave typos in comments all the time and it would be much less frustrating for them if they could just edit them. Maybe there could be a way to offer that edibility even without an account, like some editing timeout window. </p>
+</div>
+
+
+
+<div class="wp-block-column">
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="968" src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-02-at-3.30.29-PM.png?resize=1024%2C968&#038;ssl=1" alt="" class="wp-image-325063" srcset="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-02-at-3.30.29-PM.png?resize=1024%2C968&amp;ssl=1 1024w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-02-at-3.30.29-PM.png?resize=300%2C283&amp;ssl=1 300w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-02-at-3.30.29-PM.png?resize=768%2C726&amp;ssl=1 768w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-02-at-3.30.29-PM.png?resize=1000%2C945&amp;ssl=1 1000w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-02-at-3.30.29-PM.png?w=1162&amp;ssl=1 1162w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /><figcaption>As an admin user, I can edit comments in the admin area. This is what I&#8217;d expect a logged in user could do on their own comment.</figcaption></figure>
+</div>
+</div>
+
+
+
+<p>Is this something <a href="https://buddypress.org/">BuddyPress</a> does? I don&#8217;t know.<em> </em>I know with <a href="https://bbpress.org/">bbPress</a> that users own (and thus can edit) their topics and replies (possibly time-limited), but that functionality doesn&#8217;t seem to extend to post comment threads.</p>
+
+
+
+<h3 id="h-there-should-be-social-auth-for-comments">There should be social auth for comments.</h3>
+
+
+
+<p>Having to manually type out your name and email address and all that to leave a comment feels like too much effort these days. I&#8217;d bet that alone detracts many would-be commenters. Commenting systems like Disqus make this quick and easy, and with social media I&#8217;m so used to being able to type a reply and respond immediately. On a WordPress comment form, I should be able to click a button to have the legwork of knowing my name and email and such taken care of for me. That might even be my ticket for editing it later. </p>
+
+
+
+<div class="wp-block-columns">
+<div class="wp-block-column">
+<p><a href="https://jetpack.com/support/comments/?aff=8638">Jetpack</a> offers social media auth for comments, but if you turn that on, the UI for commenting is <code>&lt;iframe&gt;</code>d, so you have no design control or anything.</p>
+
+
+
+<p>Also, the UI where it first shows up as a little narrow textarea block that you click into to expand into a comment area is also unchangeable and just doesn&#8217;t work that well with my style. I wouldn&#8217;t mind if this was Jetpack-powered functionality, I just want more control.</p>
+</div>
+
+
+
+<div class="wp-block-column">
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="506" src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/jpcommentsform.png?resize=1024%2C506&#038;ssl=1" alt="" class="wp-image-325064" srcset="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/jpcommentsform.png?resize=1024%2C506&amp;ssl=1 1024w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/jpcommentsform.png?resize=300%2C148&amp;ssl=1 300w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/jpcommentsform.png?resize=768%2C379&amp;ssl=1 768w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/jpcommentsform.png?resize=1536%2C758&amp;ssl=1 1536w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/jpcommentsform.png?resize=1000%2C494&amp;ssl=1 1000w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/jpcommentsform.png?w=1576&amp;ssl=1 1576w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /><figcaption>The login form you get from Jetpack, which is like WordPress.com</figcaption></figure>
+</div>
+</div>
+
+
+
+<h3 id="h-there-should-be-a-html-tag-whitelist">There should be a HTML tag whitelist.</h3>
+
+
+
+<p>I find when people type a <code>&lt;div&gt;</code>, they don&#8217;t expect to have to escape it lest it be stripped. They expect it to just show <code>&lt;div&gt;</code>. Even web developers.</p>
+
+
+
+<p>I see people &#8220;screw up&#8221; (not entirely their fault) the HTML in comments like this a ton. <a href="https://jetpack.com/support/markdown/?aff=8638">Jetpack offers Markdown</a> in comments, which is a massive improvement because it becomes so easy to use backticks. I think native WordPress should support that. But even then, not everyone knows Markdown, let alone how it deals with HTML (e.g. when does it escape HTML and when does it not). </p>
+
+
+
+<p><a href="https://css-tricks.com/how-i-think-posting-html-in-comments-should-work/">I&#8217;ve been thinking about this for a decade</a> and I&#8217;m still not sure the best solution, but a whitelist seems like it could help a lot. For example, you can use a <code>&lt;em&gt;</code> and it will make text italic, but a tag like <code>&lt;section&gt;</code> is not on the whitelist and is automatically escaped.</p>
+
+
+
+<h3 id="h-comments-should-be-previewable">Comments should be previewable.</h3>
+
+
+
+<p>A preview gives people a chance to make sure their comment looks right, and probably just as importantly, one more chance to <em>think</em> before hitting the submit button.</p>
+
+
+
+<h3 id="h-replies-should-generate-email-notifications">Replies should generate email notifications.</h3>
+
+
+
+<div class="wp-block-columns">
+<div class="wp-block-column">
+<p>Jetpack offers a feature that allows users to subscribe either to your blog itself (email notifications of newly published posts) or to comments on the particular post the user is commenting on.</p>
+</div>
+
+
+
+<div class="wp-block-column">
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="396" src="https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-04-at-1.29.33-PM.png?resize=1024%2C396&#038;ssl=1" alt="" class="wp-image-325217" srcset="https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-04-at-1.29.33-PM.png?resize=1024%2C396&amp;ssl=1 1024w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-04-at-1.29.33-PM.png?resize=300%2C116&amp;ssl=1 300w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-04-at-1.29.33-PM.png?resize=768%2C297&amp;ssl=1 768w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-04-at-1.29.33-PM.png?resize=1000%2C386&amp;ssl=1 1000w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-04-at-1.29.33-PM.png?w=1206&amp;ssl=1 1206w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /></figure>
+</div>
+</div>
+
+
+
+<p>In the case of new blog post emails, those come from WordPress.com, and you don&#8217;t have any control over them (e.g. design control or control over what kind of posts trigger them). It&#8217;s still kind of a cool feature, but if you&#8217;re serious about delivering new content to users, you might be better off with a more <a href="https://css-tricks.com/a-gutenburg-powered-newsletter/">custom workflow</a>. </p>
+
+
+
+<p>Notifying users of new comments seems like a great feature for any commenting system. When I leave a comment, I feel invested, and there is a good chance I want to follow the continued conversation. Although, even more likely, I&#8217;d just want to hear about replies to <em>my specific comment</em>. WordPress already generates so many emails for things, this doesn&#8217;t feel out of scope.</p>
+
+
+
+<h3 id="h-replies-should-show-parent-comment-s">Replies should show parent comment(s).</h3>
+
+
+
+<p>When looking at the site itself, replies are fairly obvious. They are nested under the parent comment they reply to. Context is always there. But there are other places where you can see a reply comment and be totally missing that context:</p>
+
+
+
+<ol><li>Email notifications of reply comments don&#8217;t include the parent thread</li><li>The comments area in the admin (or WordPress app)</li></ol>
+
+
+
+<p>The later includes a &#8220;In Reply To [Name]&#8221; link, but all it does is link to the front end of the site where that parent comment lives, it doesn&#8217;t do anything extra helpful like expand inline or show a popup preview.</p>
+
+
+
+<h3 id="h-comment-emails-should-be-better-looking">Comment emails should be better looking.</h3>
+
+
+
+<p>I have a plugin on CSS-Tricks called <a href="https://wordpress.org/plugins/clean-notifications/">Clean Notifications</a> that hasn&#8217;t been updated in 13 years and it still works just fine. All it does is clean up the emails so there aren&#8217;t long gnarly URL&#8217;s in them, and instead, just have regular HTML links.</p>
+
+
+
+<div class="wp-block-columns">
+<div class="wp-block-column">
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="551" src="https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-04-at-1.49.02-PM.png?resize=1024%2C551&#038;ssl=1" alt="" class="wp-image-325219" srcset="https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-04-at-1.49.02-PM.png?resize=1024%2C551&amp;ssl=1 1024w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-04-at-1.49.02-PM.png?resize=300%2C162&amp;ssl=1 300w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-04-at-1.49.02-PM.png?resize=768%2C413&amp;ssl=1 768w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-04-at-1.49.02-PM.png?resize=1000%2C538&amp;ssl=1 1000w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-04-at-1.49.02-PM.png?w=1486&amp;ssl=1 1486w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /><figcaption>Default new comment emails: full of long gnarly URLs</figcaption></figure>
+</div>
+
+
+
+<div class="wp-block-column">
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="723" src="https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/CleanShot-2020-11-04-at-13.50.31@2x.png?resize=1024%2C723&#038;ssl=1" alt="" class="wp-image-325220" srcset="https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/CleanShot-2020-11-04-at-13.50.31@2x.png?resize=1024%2C723&amp;ssl=1 1024w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/CleanShot-2020-11-04-at-13.50.31@2x.png?resize=300%2C212&amp;ssl=1 300w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/CleanShot-2020-11-04-at-13.50.31@2x.png?resize=768%2C542&amp;ssl=1 768w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/CleanShot-2020-11-04-at-13.50.31@2x.png?resize=1000%2C706&amp;ssl=1 1000w, https://i2.wp.com/css-tricks.com/wp-content/uploads/2020/11/CleanShot-2020-11-04-at-13.50.31@2x.png?w=1212&amp;ssl=1 1212w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /><figcaption>With Clean Notifications on, things are cleaned up a little.</figcaption></figure>
+</div>
+</div>
+
+
+
+<p>I&#8217;d vote that the default WordPress-generated emails could have a whole round of design love. Basic HTML email usage would allow link usage and basic typography that would make them all much nicer. </p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large is-resized"><img loading="lazy" src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/29055956-8dcca38e-7bb4-11e7-8a86-7b056ebf673d.png?resize=542%2C485&#038;ssl=1" alt="" class="wp-image-325298" width="542" height="485" srcset="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/29055956-8dcca38e-7bb4-11e7-8a86-7b056ebf673d.png?resize=1024%2C916&amp;ssl=1 1024w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/29055956-8dcca38e-7bb4-11e7-8a86-7b056ebf673d.png?resize=300%2C268&amp;ssl=1 300w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/29055956-8dcca38e-7bb4-11e7-8a86-7b056ebf673d.png?resize=768%2C687&amp;ssl=1 768w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/29055956-8dcca38e-7bb4-11e7-8a86-7b056ebf673d.png?resize=1536%2C1374&amp;ssl=1 1536w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/29055956-8dcca38e-7bb4-11e7-8a86-7b056ebf673d.png?resize=1000%2C895&amp;ssl=1 1000w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/11/29055956-8dcca38e-7bb4-11e7-8a86-7b056ebf673d.png?w=1614&amp;ssl=1 1614w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /><figcaption>Look how nice and simple Lee Monroe&#8217;s <a href="https://github.com/leemunroe/responsive-html-email-template">HTML email template</a> is. </figcaption></figure></div>
+
+
+
+<h3 id="h-comment-emails-should-have-actionable-links">Comment emails should have actionable links</h3>
+
+
+
+<p>There <em>are</em> links to <strong>Delete</strong> and <strong>Spam</strong> a comment, but they don&#8217;t actually <em>do</em> those things, they take you to a page where then you have to click another link to perform the action. If I&#8217;m auth&#8217;d, it should just do the action. </p>
+
+
+
+<h3 id="h-ajax">Ajax</h3>
+
+
+
+<p>Comment actions (particularly leaving a new comment) should be doable without requiring a full page refresh. Full page refreshes feel old in the same way that lacking quick social auth feels old.</p>
+
+
+
+<p>Comment replies already have a special script that gets enqueued on WordPress themes. That script handles the job of manipulating the DOM and moving the comment form up next to comments when a &#8220;Reply&#8221; link is clicked (if you enable that feature). So there is a precedent for comment-specific JavaScript on arbitrary themes. </p>
+
+
+
+<p>I would think it&#8217;s possible to write more JavaScript that would allow for Ajax submission of new comments and DOM manipulation to do whatever happens next (show the comment, show approval messaging, show errors, etc). There is precedent for this, as well as <a href="https://wordpress.org/plugins/wp-ajaxify-comments/">third-party plugins</a> and <a href="https://rudrastyh.com/wordpress/ajax-comments.html">blog posts</a> about hand-rolled implementations. Personally, I just don&#8217;t want that technical debt, I just want it to work.</p>
+
+
+
+<h3 id="h-more-comment-actions">More comment actions</h3>
+
+
+
+<p>I&#8217;ve long run <a href="https://wordpress.org/plugins/feature-comments/">a plugin to help me &#8220;feature&#8221; or &#8220;bury&#8221; comments</a> in a thread. It&#8217;s not particularly complex, as it just updates some metadata on individual comments, then lets me apply those states with a class and style them in CSS. I don&#8217;t know that all sites need this kind of thing, but&#8230; Jetpack offers the ability to add a button to &#8220;Like&#8221; a post like you can on WordPress.com. Why not comments too? If people could vote on comments, it could do useful things like allow the default sort of comments to be based on up-votes or likes rather than chronological order alone. I think people care far more about interesting comments than they do about seeing them in date-time order.</p>
+
+
+
+<p>So perhaps additional comment actions could be&#8230; </p>
+
+
+
+<ul><li>Upvote</li><li>Downvote</li><li>Report as spam</li><li>Report as harmful (or a Code of Conduct violation)</li><li>Save / Pin</li></ul>
+
+
+
+<p>Speaking of voting, if comments were owned by users, and comments had data about quality, perhaps users with lots of good comments could be rewarded in various ways. Right now, you essentially have to choose to either moderate all comments or not, but it could be that you only moderate comments from people with low/bad/no quality scores. Not to mention calling out comments in threads from known-good commenters. </p>
+
+
+
+<h3 id="h-sorting">Sorting</h3>
+
+
+
+<p>Assuming we get some sort of voting system for comments, it makes sense for comments to be ordered by votes by default. Or at least an option for sorting in addition to the chronological order.</p>
+
+
+
+<h3 id="h-front-end-powers">Front-end powers</h3>
+
+
+
+<p>I think it would be neat if you could do all the things you can do on the back end with a comment on the front end. For example, edit the comment, delete it, spam it, update metadata, etc.</p>
+
+
+
+<h3 id="h-permissions-role-for-comment-moderator">Permissions role for comment moderator</h3>
+
+
+
+<div class="wp-block-columns">
+<div class="wp-block-column">
+<p>On sites with thriving comment threads (like all sites would be if they had these awesome changes amiright?) it would be nice to be able to invite trusted community members to moderate comment threads. Not admins of the whole site. Not authors or editors. Just people who have permission to deal with comments and comments alone. </p>
+</div>
+
+
+
+<div class="wp-block-column">
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="622" src="https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-06-at-10.24.01-AM.png?resize=1024%2C622&#038;ssl=1" alt="" class="wp-image-325301" srcset="https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-06-at-10.24.01-AM.png?resize=1024%2C622&amp;ssl=1 1024w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-06-at-10.24.01-AM.png?resize=300%2C182&amp;ssl=1 300w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-06-at-10.24.01-AM.png?resize=768%2C467&amp;ssl=1 768w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-06-at-10.24.01-AM.png?resize=1000%2C608&amp;ssl=1 1000w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-06-at-10.24.01-AM.png?w=1198&amp;ssl=1 1198w" sizes="(min-width: 735px) 864px, 96vw" data-recalc-dims="1" /><figcaption>Not a real thing.</figcaption></figure>
+</div>
+</div>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<p>This was partially inspired by <a href="https://jeremyfelt.com/2020/09/23/a-checklist-for-how-id-like-comments-to-work-in-wordpress/">Jeremy Felt&#8217;s recent post</a> and partially a continuation of <a href="https://chriscoyier.net/2019/04/24/improving-wordpress-comments/">my own thoughts</a>. Jeremy mentions ideas like private comments (interesting, but not mega compelling to me) and Webmentions support (yes please!). Maybe <a href="https://github.com/jeremyfelt/comments-project">this</a> will go somewhere.</p>
+<hr />
+<p>The post <a rel="nofollow" href="https://css-tricks.com/my-wordpress-comments-wishlist/">My WordPress Comments Wishlist</a> appeared first on <a rel="nofollow" href="https://css-tricks.com">CSS-Tricks</a>.</p>
+<p>You can support CSS-Tricks by being an <a href="https://css-tricks.com/product/mvp-supporter/">MVP Supporter</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://css-tricks.com/my-wordpress-comments-wishlist/feed/</wfw:commentRss>
+			<slash:comments>4</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">325042</post-id>	</item>
+		<item>
+		<title>Libraries for SVG Drawing Animations</title>
+		<link>https://css-tricks.com/libraries-for-svg-drawing-animations/</link>
+					<comments>https://css-tricks.com/libraries-for-svg-drawing-animations/#respond</comments>
+		
+		<dc:creator><![CDATA[Linda Ikechukwu]]></dc:creator>
+		<pubDate>Wed, 11 Nov 2020 22:51:18 +0000</pubDate>
+				<category><![CDATA[Article]]></category>
+		<category><![CDATA[SVG]]></category>
+		<category><![CDATA[SVG animation]]></category>
+		<guid isPermaLink="false">https://css-tricks.com/?p=324484</guid>
+
+					<description><![CDATA[<p>In 2013, Jake Archibald <a href="https://jakearchibald.com/2013/animated-line-drawing-svg/">introduced</a> this cool trick of animating an SVG path to look like it’s drawing itself. It’s 2020 now, and the trick is still popular. I’ve seen it on a lot of websites I’ve visited recently. I, too, feature an animated SVG loader on my <a href="https://www.codewithlinda.com/">website</a> using one of the libraries I’ll introduce below.</p>
+<p>In a previous article, Chris Coyier wrote about <a href="https://css-tricks.com/svg-line-animation-works/">how SVG path animations work</a> under the hood, using the CSS <code><a href="https://css-tricks.com/almanac/properties/s/stroke-dasharray/">stroke-dasharray</a></code> and <code><a href="https://css-tricks.com/almanac/properties/s/stroke-dashoffset/">stroke-dashoffset</a></code> properties. &#8230; <a href="https://css-tricks.com/libraries-for-svg-drawing-animations/" class="read-more">Read article <span class="screen-reader-text"> &#8220;Libraries for SVG Drawing Animations&#8221;</span></a></p>
+<hr />
+<p>The post <a rel="nofollow" href="https://css-tricks.com/libraries-for-svg-drawing-animations/">Libraries for SVG Drawing Animations</a> appeared first on <a rel="nofollow" href="https://css-tricks.com">CSS-Tricks</a>.</p>
+<p>You can support CSS-Tricks by being an <a href="https://css-tricks.com/product/mvp-supporter/">MVP Supporter</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>In 2013, Jake Archibald <a href="https://jakearchibald.com/2013/animated-line-drawing-svg/">introduced</a> this cool trick of animating an SVG path to look like it’s drawing itself. It’s 2020 now, and the trick is still popular. I’ve seen it on a lot of websites I’ve visited recently. I, too, feature an animated SVG loader on my <a href="https://www.codewithlinda.com/">website</a> using one of the libraries I’ll introduce below.</p>
+
+
+
+<p>In a previous article, Chris Coyier wrote about <a href="https://css-tricks.com/svg-line-animation-works/">how SVG path animations work</a> under the hood, using the CSS <code><a href="https://css-tricks.com/almanac/properties/s/stroke-dasharray/">stroke-dasharray</a></code> and <code><a href="https://css-tricks.com/almanac/properties/s/stroke-dashoffset/">stroke-dashoffset</a></code> properties. In this article, I want to introduce you to four JavaScript libraries that can be used to create SVG path drawing animations with fewer lines of code, like <a href="https://codepen.io/ikas/pen/wMxKrj">this cool example</a>. Why a library? Because they’re ideal for complex animations involving two or more SVGs with multiple paths.</p>
+
+
+
+<span id="more-324484"></span>
+
+
+
+<p>To get started, l’ll first secure an SVG to demo. Let’s use <a href="https://www.svgrepo.com/svg/41976/castle">this</a> <a href="https://www.svgrepo.com/svg/41976/castle">castle from svgrepo</a>. The castle SVG downloads as an SVG image. But, since we’re dealing with path animation, what we need is the code format of the SVG. To get this, I’ll import the file into Figma and use the “Copy as SVG” feature (Right Click → Copy/Paste → Copy as SVG) to grab the SVG code.</p>
+
+
+
+<p>To successfully animate an SVG path, the SVG shape should have a <code>fill</code> of <code>none</code> and each individual SVG path must have a <code><a href="https://css-tricks.com/almanac/properties/s/stroke/">stroke</a></code> (we’ll set it to <code>#B2441D</code>) and a <code><a href="https://css-tricks.com/almanac/properties/s/stroke-width/">stroke-width</a></code> (set to 2px).</p>
+
+
+
+<p>The animation effect we want to create is to first draw the outline (or stroke) of the SVG and then fill in the different colors. In total, there are six different fill colors used throughout the SVG, so we’ll remove the fill color from each path and give paths of the same color the same class name.</p>
+
+
+
+<ul><li><code>#695A69</code>: <code>color-1</code></li><li><code>#B2441D</code>: <code>color-2</code></li><li><code>#DFDOC6</code>: <code>color-3</code></li><li><code>#C8B2A8</code>: <code>color-4</code></li><li><code>#DE582A</code>: <code>color-5</code></li><li><code>#AO8A8A</code>: <code>color-6</code></li></ul>
+
+
+
+<p>After all the modifications, here’s what the SVG code looks like:</p>
+
+
+
+<pre rel="SVG" class="wp-block-csstricks-code-block language-svg" data-line=""><code markup="tt">
+&lt;svg id="svg-castle" width="480" height="480" viewBox="0 0 480 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+  &lt;path d="M231.111 183.761V150.371C231.111 149.553 231.774 148.889 232.592 148.889H24  7.407C248.225 148.889 248.889 149.552 248.889 150.371V183.761L258.342 206.667H271.111  V135.556H240H208.889V206.667H221.658L231.111 183.761Z" stroke="#B2441D" stroke-width="2px" class="color-6" />
+  &lt;path d="M311.111 420H288.889V455.556V468.889H311.111V455.556V420Z" stroke="#B2441D"   stroke-width="2px" class="color-1" />
+  &lt;path d="M191.111 420H168.889V455.556V468.889H191.111V455.556V420Z" stroke="#B2441D" stroke-width="2px" class="color-1" />
+  &lt;path d="M168.889 220V228.889V237.778H222.222V228.889H212.487L221.658 206.667H208.88   9H169.524L177.778 220H168.889Z" stroke="#B2441D" stroke-width="2px" class="color-2"/ >
+  &lt;!-- etc. -->
+&lt;/svg></code></pre>
+
+
+
+<p>That’s all the SVG preparation we need. Let’s look at how to achieve the desired animation with the different libraries.</p>
+
+
+
+<h3 id="library-1-vivus">Library 1: Vivus</h3>
+
+
+
+<p><a href="https://maxwellito.github.io/vivus/">Vivus</a> is a lightweight JavaScript class (with no dependencies) that allows you to animate SVGs like they’re being drawn. The library is available using any of <a href="https://github.com/maxwellito/vivus#vivusjs">these</a> <a href="https://github.com/maxwellito/vivus#vivusjs">options</a>. To keep things simple, we’ll use a CDN link:</p>
+
+
+
+<pre rel="HTML" class="wp-block-csstricks-code-block language-markup" data-line=""><code markup="tt">&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/vivus/0.4.5/vivus.min.js" integrity="sha512-NBLGIjYyAoYAr23l+dmAcUv7TvFj0XrqZoFa4i1o+F2VvF9SrERyMD8BHNnJn1SEGjl1AouBDcCv/q52L3ozBQ==" crossorigin="anonymous">&lt;/script></code></pre>
+
+
+
+<p>Next, let’s create a new Vivus instance. It takes three arguments:</p>
+
+
+
+<ol><li>The ID of the target element (the SVG)</li><li>An <code>options</code> object with <a href="https://github.com/maxwellito/vivus#option-list">a dozen possible values</a></li><li>A callback function that runs at the end of the animation</li></ol>
+
+
+
+<p>Looking back at our SVG code, the SVG ID is <code>svg-castle</code>.</p>
+
+
+
+<pre rel="JavaScript" class="wp-block-csstricks-code-block language-javascript" data-line=""><code markup="tt">new Vivus('svg-castle', { 
+  duration: 200, type:'oneByOne'
+});</code></pre>
+
+
+
+<p>Now, let’s write a callback function that fills the paths with the different colors we’ve defined:</p>
+
+
+
+<pre rel="JavaScript" class="wp-block-csstricks-code-block language-javascript" data-line=""><code markup="tt">function fillPath(classname, color) {
+  const paths = document.querySelectorAll(`#svg-castle .${classname}`);
+  for (path of paths){
+    path.style.fill = `${color}`;
+  }
+}</code></pre>
+
+
+
+<p>The <code>fillPath</code> function selects all paths in the <code>svg-castle</code> element with the supplied <code>classname</code>, loops through and fills each path with the specified color. Remember in a previous step, we removed the fill from each path and gave each path a same fill class (<code>color-1</code>, <code>color-2</code>, etc.).</p>
+
+
+
+<p>Next up, we call the <code>fillPath</code> function for the six different classnames and their corresponding colors:</p>
+
+
+
+<pre rel="JavaScript" class="wp-block-csstricks-code-block language-javascript" data-line=""><code markup="tt">function after() {
+  fillPath('color-1', '#695a69');
+  fillPath('color-2', '#b2441d');
+  fillPath('color-3', '#dfd0c6');
+  fillPath('color-4', '#c8b2a8');
+  fillPath('color-5', '#de582a');
+  fillPath('color-6', '#a08a8a')
+}</code></pre>
+
+
+
+<p>That’s the callback function passed to the Vivus instance. See Pen for full implementation.</p>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_ZEOYbJY" src="//codepen.io/anon/embed/ZEOYbJY?height=600&amp;theme-id=1&amp;slug-hash=ZEOYbJY&amp;default-tab=result" height="600" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed ZEOYbJY" title="CodePen Embed ZEOYbJY" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<h3 id="library-2-walkway-js">Library 2: Walkway.js</h3>
+
+
+
+<p><a href="https://connoratherton.com/walkway">Walkway</a> is a light-weight SVG animation library for <code>path</code>, <code>line</code> and <code>polygon</code> elements. To start using it, we can either add the library using <code>npm</code>, <code>yarn</code>, or with a CDN link like we did with Vivus. We’ll go with the CDN link once again:</p>
+
+
+
+<pre rel="HTML" class="wp-block-csstricks-code-block language-markup" data-line=""><code markup="tt">&lt;script src="https://cdn.jsdelivr.net/npm/walkway.js/src/walkway.min.js">&lt;/script></code></pre>
+
+
+
+<p>With Walkway, we create a new <code>Walkway</code> instance, passing an <code>options</code> object as an argument. Then, we call the <code>draw</code> method on the new instance and pass in an optional callback function which will be run at the end of the draw animation. Again, very much like Vivus.</p>
+
+
+
+<p>We’ve already written the <code>after</code> callback function in the previous example, so the rest should be a piece of cake:</p>
+
+
+
+<pre rel="JavaScript" class="wp-block-csstricks-code-block language-javascript" data-line=""><code markup="tt">const svg = new Walkway({
+  selector: '#svg-castle',
+  duration: 3000,
+});
+
+svg.draw(after);</code></pre>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_GRqRXzp" src="//codepen.io/anon/embed/GRqRXzp?height=600&amp;theme-id=1&amp;slug-hash=GRqRXzp&amp;default-tab=result" height="600" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed GRqRXzp" title="CodePen Embed GRqRXzp" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<h3 id="library-3-lazy-line-painter">Library 3: Lazy Line Painter</h3>
+
+
+
+<p><a href="https://github.com/camoconnell/lazy-line-painter">Lazy Line Painter</a> is a modern JavaScript library for SVG path animation. It requires minimal code to setup. However, if a GUI is more of your thing, you can use the <a href="http://lazylinepainter.info/#composer">Lazy Line Composer</a> which is a free online editor for SVG path animation from the same makers. The SVG will be exported as an animated SVG file that can be used directly anywhere.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://paper-attachments.dropbox.com/s_0F4B2A256F39C5890B6B94AAC9FE4B01766C23FFE67E01CCCC3AFEE79B29AB60_1602483495618_image.png" alt=""/></figure>
+
+
+
+<p>The basic setup for Lazy Line Painter is similar to what we’ve already done in the other examples. First, get the library using either npm or a CDN link. Just like the previous examples, we&#8217;ll use a CDN link:</p>
+
+
+
+<pre rel="HTML" class="wp-block-csstricks-code-block language-markup" data-line=""><code markup="tt">&lt;script src="https://cdn.jsdelivr.net/npm/lazy-line-painter@1.9.4/lib/lazy-line-painter-1.9.4.min.js">&lt;/script></code></pre>
+
+
+
+<p>Then, we initialize a new <code>LazyLinePainter</code> instance, which accepts two parameters —  a selector (the ID of the target SVG element) and a config object. Let’s call the paint method on the new instance:</p>
+
+
+
+<pre rel="JavaScript" class="wp-block-csstricks-code-block language-javascript" data-line=""><code markup="tt">// select the svg by id
+let svg = document.querySelector('#svg-castle')
+
+// define config options
+let options = {
+  strokeDash: '2, 2',
+}
+// initialize new LazyLinePainter instance
+let myAnimation = new LazyLinePainter(svg, options)
+
+// call the paint method
+myAnimation.paint()</code></pre>
+
+
+
+<p>A full list of config options are <a href="https://github.com/camoconnell/lazy-line-painter#configuration">available in the library docs</a>. Unlike the previous libraries, we don’t pass a callback function to the <code>paint</code> method. Instead, we’ll listen for the <code>complete:all</code> event handler on the animation and then pass in the callback function.</p>
+
+
+
+<pre rel="JavaScript" class="wp-block-csstricks-code-block language-javascript" data-line=""><code markup="tt">myAnimation.on('complete:all', (event) => {after()});</code></pre>
+
+
+
+<p>We can also control when the <code>paint</code> method runs using event listeners like we’ve have done in the following codepen demo. Click on the castle to re-run the animation.</p>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_eYzmWyQ" src="//codepen.io/anon/embed/eYzmWyQ?height=600&amp;theme-id=1&amp;slug-hash=eYzmWyQ&amp;default-tab=result" height="600" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed eYzmWyQ" title="CodePen Embed eYzmWyQ" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<h3 id="library-4-framer-motion">Library 4: Framer Motion</h3>
+
+
+
+<p><a href="https://www.framer.com/motion/">Framer Motion</a> is a bit different from other libraries we’ve covered. It’s a production-ready open-source animation library for React components with tons of possible animation types. And, yes, this is from the same team behind the popular <a href="https://www.framer.com">Framer prototyping tool</a>.</p>
+
+
+
+<p>First up, we’ll install the library with npm in the terminal:</p>
+
+
+
+<pre rel="Terminal" class="wp-block-csstricks-code-block language-none" data-line=""><code markup="tt">npm install framer-motion</code></pre>
+
+
+
+<p>For SVG path drawing animations, Framer Motion provides a <code><a href="https://www.framer.com/api/motion/component/#svg-path">motion.path</a></code> component that takes four props:</p>
+
+
+
+<pre rel="JavaScript" class="wp-block-csstricks-code-block language-javascript" data-line=""><code markup="tt">&lt;motion.path
+  d={pathDefinition}
+  initial={{ pathLength: 1, pathOffset: 0 }}
+  animate={{ pathLength: 0, pathOffset: 1 }}
+  transition={{ duration: 2 }}
+/></code></pre>
+
+
+
+<p>To use it, we’ll simply convert our SVG paths to <code>motion.path</code>, like this:</p>
+
+
+
+<pre rel="JSX" class="wp-block-csstricks-code-block language-jsx" data-line=""><code markup="tt">import React from 'react';
+import { motion } from "framer-motion";
+const AnimatedCastle = () => {
+  return (
+    &lt;svg id="svg-castle" width="480" height="480" viewBox="0 0 480 480" fill="non            e" xmlns="http://www.w3.org/2000/svg">
+      &lt;motion.path d="M311.111 420H288.889V455.556V468.889H311.111V455.556V420Z"              stroke="#B2441D" stroke-width="2" className="color-1"
+       initial={{ pathLength: 1,fill:"none", opacity:0, }}
+       animate={{ pathLength: 0,fill:"695A69", opacity:1 }}
+       transition={{ duration: 2 }}
+      />
+      &lt;motion.path d="M191.111 420H168.889V455.556V468.889H191.111V455.556V420Z"                stroke="#B2441D" stroke-width="2" className="color-2"
+        initial={{ pathLength: 1, fill:"none", opacity:0, }}
+        animate={{ pathLength: 0, fill:"#b2441d", opacity:1}}
+        transition={{ duration: 3 }}
+      />
+         
+      &lt;!-- etc. -->
+    &lt;/svg>
+  )
+}</code></pre>
+
+
+
+<p>This has to be done for each SVG path. See this demo for full implementation:</p>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_PozzYLr" src="//codepen.io/anon/embed/PozzYLr?height=600&amp;theme-id=1&amp;slug-hash=PozzYLr&amp;default-tab=result" height="600" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed PozzYLr" title="CodePen Embed PozzYLr" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<p>There’s a caveat though: the castle SVG has over 60 paths, which is a lot. Going through them was quite daunting for me, and I found the process to be repetitive and prone to errors. For that reason, I don’t recommend Framer Motion but I would say that it is well suited for SVGs within React components with no more than five paths. For anything more than that, go with any of the previous libraries we covered.</p>
+
+
+
+<h1 id="conclusion">Conclusion</h1>
+
+
+
+<p>That’s a look at four JavaScript libraries we can use to get hand-drawn SVG effects.</p>
+
+
+
+<p>Why didn’t we cover a CSS-only solution? While it&#8217;s possible to do, it involves a lot of code repetition. For example, it means finding the total length of each path using JavaScript or with <a href="https://css-tricks.com/a-trick-that-makes-drawing-svg-lines-way-easier/">this cool trick</a> that sets each path length to 1, and then sets the <code>stroke-dasharrray</code> and <code>stroke-dashoffset</code> of each path to its path length.</p>
+
+
+
+<p>After that, we still need to define keyframes to animate the <code>stroke-dashoffset</code> to zero. Then, those keyframe animations will be added to each path and with an <code>animation-delay</code> to offset things a bit. We also have to write six different keyframe rules to fill the paths with their respective colors. Considering that the castle has over 60 individual paths, that’s over 100 lines of CSS! Not exactly the most efficient or straightforward approach.</p>
+<hr />
+<p>The post <a rel="nofollow" href="https://css-tricks.com/libraries-for-svg-drawing-animations/">Libraries for SVG Drawing Animations</a> appeared first on <a rel="nofollow" href="https://css-tricks.com">CSS-Tricks</a>.</p>
+<p>You can support CSS-Tricks by being an <a href="https://css-tricks.com/product/mvp-supporter/">MVP Supporter</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://css-tricks.com/libraries-for-svg-drawing-animations/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">324484</post-id>	</item>
+		<item>
+		<title>The Cleanest Trick for Autogrowing Textareas</title>
+		<link>https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/</link>
+					<comments>https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/#comments</comments>
+		
+		<dc:creator><![CDATA[Chris Coyier]]></dc:creator>
+		<pubDate>Wed, 11 Nov 2020 15:22:28 +0000</pubDate>
+				<category><![CDATA[Article]]></category>
+		<category><![CDATA[grid]]></category>
+		<category><![CDATA[textarea]]></category>
+		<guid isPermaLink="false">https://css-tricks.com/?p=324427</guid>
+
+					<description><![CDATA[<p>Earlier this year I wrote a bit about <a href="https://css-tricks.com/auto-growing-inputs-textareas/">autogrowing textareas and inputs</a>. The idea was to make a <code>&#60;textarea&#62;</code> more like a <code>&#60;div&#62;</code> so it expands in height as much as it needs to in order to contain the current value. It&#8217;s almost weird there isn&#8217;t a simple native solution for this, isn&#8217;t it? Looking back at that article, none of my ideas were particularly good. But Stephen Shaw&#8217;s <a href="https://codepen.io/shshaw/pen/c72208b279d750f1ab46b6a45bbd04d7">idea</a> that I linked to toward the end of it &#8230; <a href="https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/" class="read-more">Read article <span class="screen-reader-text"> &#8220;The Cleanest Trick for Autogrowing Textareas&#8221;</span></a></p>
+<hr />
+<p>The post <a rel="nofollow" href="https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/">The Cleanest Trick for Autogrowing Textareas</a> appeared first on <a rel="nofollow" href="https://css-tricks.com">CSS-Tricks</a>.</p>
+<p>You can support CSS-Tricks by being an <a href="https://css-tricks.com/product/mvp-supporter/">MVP Supporter</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Earlier this year I wrote a bit about <a href="https://css-tricks.com/auto-growing-inputs-textareas/">autogrowing textareas and inputs</a>. The idea was to make a <code>&lt;textarea&gt;</code> more like a <code>&lt;div&gt;</code> so it expands in height as much as it needs to in order to contain the current value. It&#8217;s almost weird there isn&#8217;t a simple native solution for this, isn&#8217;t it? Looking back at that article, none of my ideas were particularly good. But Stephen Shaw&#8217;s <a href="https://codepen.io/shshaw/pen/c72208b279d750f1ab46b6a45bbd04d7">idea</a> that I linked to toward the end of it is actually a <em>very</em> good idea for this, so I wanted to shine some light on that and talk through how it works, because it seems like it&#8217;s the final answer to how this UX can be done until we get something native and better.</p>
+
+
+
+<span id="more-324427"></span>
+
+
+
+<p>Here&#8217;s the demo in case you just want a working example:</p>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_XWKEVLy" src="//codepen.io/anon/embed/XWKEVLy?height=450&amp;theme-id=1&amp;slug-hash=XWKEVLy&amp;default-tab=css,result" height="450" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed XWKEVLy" title="CodePen Embed XWKEVLy" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<h3 id="h-the-trick-is-that-you-exactly-replicate-the-content-of-the-textarea-in-an-element-that-can-auto-expand-height-and-match-its-sizing">The trick is that you exactly replicate the content of the <code>&lt;textarea&gt;</code> in an element that <em>can</em> auto expand height, and match its sizing.</h3>
+
+
+
+<p>So you&#8217;ve got a <code>&lt;textarea&gt;</code>, which <em>cannot</em> auto expand height. </p>
+
+
+
+<p>Instead, you <em>exactly</em> replicate the look, content, and position of the element in another element. You hide the replica visually (might as well leave the one that&#8217;s technically-functional visible). </p>
+
+
+
+<figure class="wp-block-image size-large"><img src="https://css-tricks.com/wp-content/uploads/2020/11/Frame-1.svg" alt="" class="wp-image-325049"/></figure>
+
+
+
+<p>Now all three elements are tied to each other. Whichever of the children is tallest is will push the parent to that height, and the other child will follow. This means that the minimum height of the <code>&lt;textarea&gt;</code> will become the &#8220;base&#8221; height, but if the replicated text element happens to grow taller, everything will grow taller with it.</p>
+
+
+
+<p>So clever. I love it so much. </p>
+
+
+
+<h3 id="h-you-need-to-make-sure-the-replicated-element-is-exactly-the-same">You need to make sure the replicated element is <em>exactly</em> the same</h3>
+
+
+
+<p>Same font, same padding, same margin, same border&#8230; everything. It&#8217;s an identical copy, just visually hidden with <code>visibility: hidden;</code>. If it&#8217;s not exactly the same, everything won&#8217;t grow together exactly right.</p>
+
+
+
+<p>We also need <code>white-space: pre-wrap;</code> on the replicated text because that is how textareas behave.</p>
+
+
+
+<h3 id="h-this-is-the-weirdest-part">This is the weirdest part</h3>
+
+
+
+<p><a href="https://codepen.io/chriscoyier/pen/XWKEVLy">In my demo</a>, I&#8217;m using <code>::after</code> for the replicated text. I&#8217;m not sure if that&#8217;s the best possible approach or not. It feels clean to me, but I wonder if using a <code>&lt;div aria-hidden="true"&gt;</code> is safer for screen readers? Or maybe the <code>visibility: hidden;</code> is enough for that? Anyway, that&#8217;s not the weird part. This is the weird part:</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">content: attr(data-replicated-value) " ";</code></pre>
+
+
+
+<p>Because I am using a pseudo-element, that&#8217;s the line that takes the <code>data</code> attribute off the element and renders the content to the page <strong>with that extra space</strong> (that&#8217;s the weird part). If you don&#8217;t do that, the end result feels &#8220;jumpy.&#8221; I can&#8217;t say I entirely understand it, but it seems like it respects the line break behavior across the textarea and text elements better.</p>
+
+
+
+<p>If you don&#8217;t want to use a pseudo-element, hey, fine with me, just watch for the jumpy behavior.</p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<p>Special high fives to Will&nbsp;Earp and Martin&nbsp;Tillmann who both randomly emailed on the same exact day to remind me how clever Shaw&#8217;s technique is. <a href="https://codepen.io/mrmartinezzz/pen/jOrVRmm">Here&#8217;s an example</a> Martin made with Alpine.js and Tailwind that also ends up kinda like a one-liner (but note how it&#8217;s got the jumpy thing going on). </p>
+
+
+
+<p>I&#8217;m sure ya&#8217;ll could imagine how to do this with Vue and React and whatnot in a way that can very easily maintain state across a textarea and another element. I&#8217;m not going to include examples here, partially because I&#8217;m lazy, but mostly because I think you should understand <em>how</em> this works. It will make you smarter and understand your site better.</p>
+<hr />
+<p>The post <a rel="nofollow" href="https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/">The Cleanest Trick for Autogrowing Textareas</a> appeared first on <a rel="nofollow" href="https://css-tricks.com">CSS-Tricks</a>.</p>
+<p>You can support CSS-Tricks by being an <a href="https://css-tricks.com/product/mvp-supporter/">MVP Supporter</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/feed/</wfw:commentRss>
+			<slash:comments>9</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">324427</post-id>	</item>
+		<item>
+		<title>Understanding flex-grow, flex-shrink, and flex-basis</title>
+		<link>https://css-tricks.com/understanding-flex-grow-flex-shrink-and-flex-basis/</link>
+					<comments>https://css-tricks.com/understanding-flex-grow-flex-shrink-and-flex-basis/#comments</comments>
+		
+		<dc:creator><![CDATA[Robin Rendle]]></dc:creator>
+		<pubDate>Tue, 10 Nov 2020 23:47:52 +0000</pubDate>
+				<category><![CDATA[Article]]></category>
+		<category><![CDATA[flex-basis]]></category>
+		<category><![CDATA[flex-grow]]></category>
+		<category><![CDATA[flex-shrink]]></category>
+		<category><![CDATA[flexbox]]></category>
+		<guid isPermaLink="false">https://css-tricks.com/?p=325027</guid>
+
+					<description><![CDATA[<p>When you apply a CSS property to an element, there&#8217;s lots of things going on under the hood. For example, let’s say we have some HTML like this:</p>
+<pre rel="HTML" class="wp-block-csstricks-code-block language-markup" data-line=""><code markup="tt">&#60;div class="parent"&#60;div class="child"Child&#60;/div&#60;div class="child"Child&#60;/div&#60;div class="child"Child&#60;/div&#60;/div</code></pre>
+<p>And then we write some CSS&#8230;</p>
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">.parent {
+  display: flex;
+}</code></pre>
+<p>These are technically not the only styles we’re applying when we write that one line of CSS above. In fact, a whole bunch of properties will be applied to &#8230; <a href="https://css-tricks.com/understanding-flex-grow-flex-shrink-and-flex-basis/" class="read-more">Read article <span class="screen-reader-text"> &#8220;Understanding flex-grow, flex-shrink, and flex-basis&#8221;</span></a></p>
+<hr />
+<p>The post <a rel="nofollow" href="https://css-tricks.com/understanding-flex-grow-flex-shrink-and-flex-basis/">Understanding flex-grow, flex-shrink, and flex-basis</a> appeared first on <a rel="nofollow" href="https://css-tricks.com">CSS-Tricks</a>.</p>
+<p>You can support CSS-Tricks by being an <a href="https://css-tricks.com/product/mvp-supporter/">MVP Supporter</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>When you apply a CSS property to an element, there&#8217;s lots of things going on under the hood. For example, let’s say we have some HTML like this:</p>
+
+
+
+<pre rel="HTML" class="wp-block-csstricks-code-block language-markup" data-line=""><code markup="tt">&lt;div class="parent">
+  &lt;div class="child">Child&lt;/div>
+  &lt;div class="child">Child&lt;/div>
+  &lt;div class="child">Child&lt;/div>
+&lt;/div></code></pre>
+
+
+
+<p>And then we write some CSS&#8230;</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">.parent {
+  display: flex;
+}</code></pre>
+
+
+
+<span id="more-325027"></span>
+
+
+
+<p>These are technically not the only styles we’re applying when we write that one line of CSS above. In fact, a whole bunch of properties will be applied to the <code>.child</code> elements here, as if we wrote these styles ourselves:</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">.child {
+  flex: 0 1 auto; /* Default flex value */
+}</code></pre>
+
+
+
+<p>That’s weird! Why do these elements have these extra styles applied to them even though we didn’t write that code? Well, that’s because some properties have defaults that are then intended to be overridden by us. And if we don’t happen to know these styles are being applied when we’re writing CSS, then our layouts can get pretty darn confusing and tough to manage.</p>
+
+
+
+<p>That <code>flex</code> property above is what’s known as a shorthand CSS property. And really what <em>this</em> is doing is setting three separate CSS properties at the same time. So what we wrote above is the same as writing this:</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">.child {
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+}</code></pre>
+
+
+
+<p>So, a shorthand property bundles up a bunch of different CSS properties to make it easier to write multiple properties at once, precisely like the <code>background</code> property where we can write something like this:</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">body {
+  background: url(sweettexture.jpg) top center no-repeat fixed padding-box content-box red;                   
+}</code></pre>
+
+
+
+<p>I try to avoid shorthand properties because they can get pretty confusing and I often tend to write the long hand versions just because my brain fails to parse long lines of property values. But it’s <a href="https://drafts.csswg.org/css-flexbox/#flex-grow-property">recommended</a> to use the shorthand when it comes to flexbox, which is&#8230;weird&#8230; that is, until you understand that the <code>flex</code> property is doing a lot of work and each of its sub-properties interact with the others.</p>
+
+
+
+<p>Also, the default styles are a good thing because we don’t need to know what these flexbox properties are doing 90% of the time. For example, when I use flexbox, I tend to write something like this:</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">.parent {
+  display: flex;
+  justify-content: space-between;
+}</code></pre>
+
+
+
+<p>I don’t even need to care about the child elements or what styles have been applied to them, and that’s great! In this case, we’re aligning the child items side-by-side and then spacing them equally between each other. Two lines of CSS gives you a lot of power here and that’s the neatest thing about flexbox and these inherited styles — <em>you don’t have to understand all the complexity under the hood</em> if you just want to do the same thing 90% of the time. It’s remarkably smart because all of that complexity is hidden out of view.</p>
+
+
+
+<p>But what if we want to understand how flexbox — including  the <code>flex-grow</code>, <code>flex-shrink</code>, and <code>flex-basis</code> properties — actually work? And what cool things can we do with them?</p>
+
+
+
+<p>Just go to the <a href="https://css-tricks.com/almanac/">CSS-Tricks Almanac</a>. Done!</p>
+
+
+
+<p>Just kidding. Let’s start with a quick overview that’s a little bit simplified, and return to the default <code>flex</code> properties that are applied to child elements: </p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">.child {
+  flex: 0 1 auto;
+}</code></pre>
+
+
+
+<p>These default styles are telling that child element how to stretch and expand. But whenever I see it being used or overridden, I find it helpful to think of these shorthand properties like this:</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">/* This is just how I think about the rule above in my head */
+
+.child {
+  flex: [flex-grow] [flex-shrink] [flex-basis];
+}
+
+/* or... */
+
+.child {
+  flex: [max] [min] [ideal size];
+}</code></pre>
+
+
+
+<p>That first value is <code>flex-grow</code> and it’s set to <code>0</code> because, by default, we don’t want our elements to expand at all (most of the time). Instead, we want every element to be dependent on the size of the content within it. Here’s an example:</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">.parent { 
+  display: flex; 
+}</code></pre>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_bc3d06b3162c4163a9e51ccd91913986" src="//codepen.io/anon/embed/bc3d06b3162c4163a9e51ccd91913986?height=200&amp;theme-id=1&amp;slug-hash=bc3d06b3162c4163a9e51ccd91913986&amp;default-tab=result" height="200" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed bc3d06b3162c4163a9e51ccd91913986" title="CodePen Embed bc3d06b3162c4163a9e51ccd91913986" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<p>I’ve added the <code>contenteditable</code> property to each <code>.child</code> element above so you can click into it and type even more content. See how it responds? That’s the default behavior of a flexbox item: <code>flex-grow</code> is set to <code>0</code> because we want the element to grow based on the content inside it.</p>
+
+
+
+<p>But! If we were to change the default of the <code>flex-grow</code> property from <code>0</code> to <code>1</code>, like this&#8230;</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">.child {
+  flex: 1 1 auto;
+}</code></pre>
+
+
+
+<p>Then all the elements will grow to take up an equal portion of the .parent element:</p>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_7aab5c7671016f4c76401020568d49b0" src="//codepen.io/anon/embed/7aab5c7671016f4c76401020568d49b0?height=200&amp;theme-id=1&amp;slug-hash=7aab5c7671016f4c76401020568d49b0&amp;default-tab=result" height="200" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed 7aab5c7671016f4c76401020568d49b0" title="CodePen Embed 7aab5c7671016f4c76401020568d49b0" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<p>This is exactly the same as writing…</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">.child {
+  flex-grow: 1;
+}</code></pre>
+
+
+
+<p>…and ignoring the other values because those have been set by default anyway. I think this confused me for <em>such</em> a long time when I started working with flexible layouts. I would see code that would add just <code>flex-grow</code> and wonder where the other styles are coming from. It was like an infuriating murder mystery that I just couldn’t figure out.</p>
+
+
+
+<p>Now, if we wanted to make just one of these elements grow more than the others we’d just need to do the following:</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">.child-three {
+  flex: 3 1 auto;
+}
+
+/* or we could just write... */
+
+.child-three {
+  flex-grow: 3;
+}</code></pre>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_a0492e0d5913e92c2e2a6fee17e065b0" src="//codepen.io/anon/embed/a0492e0d5913e92c2e2a6fee17e065b0?height=200&amp;theme-id=1&amp;slug-hash=a0492e0d5913e92c2e2a6fee17e065b0&amp;default-tab=result" height="200" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed a0492e0d5913e92c2e2a6fee17e065b0" title="CodePen Embed a0492e0d5913e92c2e2a6fee17e065b0" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<p>Is this weird code to look at even a decade after flexbox landed in browsers? It certainly is for me. I need extra brain power to say, “Ah, max, min, ideal size,” when I’m reading the shorthand, but it does get easier over time. Anyway, in the example above, the first two child elements will take up proportionally the same amount of space but that third element will try to grow up to three times the space as the others.</p>
+
+
+
+<p>Now this is where things get weird because this is all dependent on the content of the child elements. Even if we set <code>flex-grow</code> to <code>3</code>, like we did in the example above and then add more content, the layout will do something odd and peculiar like this:</p>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_480cd39e0ef5f98f6d82706f0478a504" src="//codepen.io/anon/embed/480cd39e0ef5f98f6d82706f0478a504?height=200&amp;theme-id=1&amp;slug-hash=480cd39e0ef5f98f6d82706f0478a504&amp;default-tab=result" height="200" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed 480cd39e0ef5f98f6d82706f0478a504" title="CodePen Embed 480cd39e0ef5f98f6d82706f0478a504" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<p>That second column is now taking up too much darn space! We’ll come back to this later, but for now, it’s just important to remember that the content of a flex item has an impact on how <code>flex-grow</code>, <code>flex-shrink</code>, and <code>flex-basis</code> work together.</p>
+
+
+
+<p>OK so now for <code>flex-shrink</code>. Remember that’s the second value in the shorthand:</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">.child {
+  flex: 0 1 auto; /* flex-shrink = 1 */
+}</code></pre>
+
+
+
+<p><code>flex-shrink</code> tells the browser what the minimum size of an element should be. The default value is <code>1</code>, which is saying, “Take up the same amount of space at all times.” However! If we were to set that value to <code>0</code> like this:</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">.child {
+  flex: 0 0 auto;
+}</code></pre>
+
+
+
+<p>…then we’re telling this element not to shrink at all now. <em>Stay the same size, you blasted element!</em> is essentially what this CSS says, and that’s precisely what it’ll do. We’ll come back to this property in a bit once we look at the final value in this shorthand.</p>
+
+
+
+<p><code>flex-basis</code> is the last value that’s added by default in the <code>flex</code> shorthand, and it’s how we tell an element to stick to an ideal size. By default, it’s set to <code>auto</code> which means, “Use my height or width.” So, when we set a parent element to <code>display: flex</code>&#8230;</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">.parent {
+  display: flex;
+}
+
+.child {
+  flex: 0 1 auto;
+}</code></pre>
+
+
+
+<p>We’ll get this by default in the browser:</p>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_682e040debc4ae4b12bdb50d14663047" src="//codepen.io/anon/embed/682e040debc4ae4b12bdb50d14663047?height=200&amp;theme-id=1&amp;slug-hash=682e040debc4ae4b12bdb50d14663047&amp;default-tab=result" height="200" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed 682e040debc4ae4b12bdb50d14663047" title="CodePen Embed 682e040debc4ae4b12bdb50d14663047" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<p>Notice how all the elements are the width of their content by default? That’s because <code>auto</code> is saying that the ideal size of our element is defined by its content. To make all the elements take up the full space of the parent we can set the child elements to <code>width: 100%</code>, <em>or</em> we can set the <code>flex-basis</code> to <code>100%</code>, <em>or</em> we can set <code>flex-grow</code> to <code>1</code>.</p>
+
+
+
+<p>Does that make sense? It’s weird, huh! It does when you think about it. Each of these shorthand values impact the other and that&#8217;s why it is recommended to write this shorthand in the first place rather than setting these values independently of one another.</p>
+
+
+
+<p>OK, moving on. When we write something like this…</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">.child-three {
+  flex: 0 1 1000px;
+}</code></pre>
+
+
+
+<p>What we’re telling the browser here is to set the <code>flex-basis</code> to <code>1000px</code> or, “please, please, please just try and take up <code>1000px</code> of space.” If that’s not possible, then the element will take up that much space proportionally to the other elements.</p>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_efd6a0311719f8458fcb8f3e99bf1f13" src="//codepen.io/anon/embed/efd6a0311719f8458fcb8f3e99bf1f13?height=200&amp;theme-id=1&amp;slug-hash=efd6a0311719f8458fcb8f3e99bf1f13&amp;default-tab=result" height="200" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed efd6a0311719f8458fcb8f3e99bf1f13" title="CodePen Embed efd6a0311719f8458fcb8f3e99bf1f13" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<p>You might notice that on smaller screens this third element is not actually a <code>1000px</code>! That’s because it’s really a suggestion. We still have <code>flex-shrink</code> applied which is telling the element to shrink to the same size as the other elements.</p>
+
+
+
+<p>Also, adding more content to the other children will still have an impact here:</p>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_464505f57050c12f294a6269583dd663" src="//codepen.io/anon/embed/464505f57050c12f294a6269583dd663?height=250&amp;theme-id=1&amp;slug-hash=464505f57050c12f294a6269583dd663&amp;default-tab=result" height="250" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed 464505f57050c12f294a6269583dd663" title="CodePen Embed 464505f57050c12f294a6269583dd663" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<p>Now, if we wanted to prevent this element from shrinking at all we could write something like this:</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">.child-three {
+  flex: 0 0 1000px;
+}</code></pre>
+
+
+
+<p>Remember, <code>flex-shrink</code> is the second value here and by setting it to 0 we’re saying, “Don&#8217;t shrink ever, you jerk.” And so it won’t. The element will even break out of the parent element because it’ll never get shorter than <code>1000px</code> wide:</p>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_1a99b3fe9761e6581e3cf9a0e5e02595" src="//codepen.io/anon/embed/1a99b3fe9761e6581e3cf9a0e5e02595?height=200&amp;theme-id=1&amp;slug-hash=1a99b3fe9761e6581e3cf9a0e5e02595&amp;default-tab=result" height="200" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed 1a99b3fe9761e6581e3cf9a0e5e02595" title="CodePen Embed 1a99b3fe9761e6581e3cf9a0e5e02595" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<p>Now all of this changes if we set <code>flex-wrap</code> to the parent element:</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">.parent {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.child-three {
+  flex: 0 0 1000px;
+}</code></pre>
+
+
+
+<p>We’ll see something like this:</p>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_587a4f6710efcb8f0fb403791834df33" src="//codepen.io/anon/embed/587a4f6710efcb8f0fb403791834df33?height=300&amp;theme-id=1&amp;slug-hash=587a4f6710efcb8f0fb403791834df33&amp;default-tab=result" height="300" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed 587a4f6710efcb8f0fb403791834df33" title="CodePen Embed 587a4f6710efcb8f0fb403791834df33" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<p>This is because, by default, flex items will try to fit into one line but <code>flex-wrap: wrap</code> will ignore that entirely. Now, if those flex items can’t fit in the same space, they’ll break onto a new line.</p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<p>Anyway, this is just some of the ways in which <code>flex</code> properties bump into each other and why it’s so gosh darn valuable to understand how these properties work under the hood. Each of these properties can affect the other, and if you don’t understand how one property works, then you sort of don’t understand how any of it works at all — which certainly confused me before I started digging into this!</p>
+
+
+
+<p>But to summarize:</p>
+
+
+
+<ul><li>Try to use the <code>flex</code> shorthand </li><li>Remember max, min and ideal size when doing so</li><li>Remember that the content of an element can impact how these values work together, too.</li></ul>
+<hr />
+<p>The post <a rel="nofollow" href="https://css-tricks.com/understanding-flex-grow-flex-shrink-and-flex-basis/">Understanding flex-grow, flex-shrink, and flex-basis</a> appeared first on <a rel="nofollow" href="https://css-tricks.com">CSS-Tricks</a>.</p>
+<p>You can support CSS-Tricks by being an <a href="https://css-tricks.com/product/mvp-supporter/">MVP Supporter</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://css-tricks.com/understanding-flex-grow-flex-shrink-and-flex-basis/feed/</wfw:commentRss>
+			<slash:comments>10</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">325027</post-id>	</item>
+		<item>
+		<title>ARIA in CSS</title>
+		<link>https://adactio.com/journal/17566</link>
+					<comments>https://css-tricks.com/aria-in-css/#respond</comments>
+		
+		<dc:creator><![CDATA[Chris Coyier]]></dc:creator>
+		<pubDate>Tue, 10 Nov 2020 23:45:00 +0000</pubDate>
+				<category><![CDATA[Article]]></category>
+		<category><![CDATA[aria]]></category>
+		<guid isPermaLink="false">https://css-tricks.com/?p=325332</guid>
+
+					<description><![CDATA[<p>Jeremey reacting to <a href="https://twitter.com/SaraSoueidan/status/1319992242262757377">Sara&#8217;s tweet</a>, about using <code>[aria-*]</code> selectors instead of classes when the styling you are applying is directly related to the ARIA state.</p>
+<blockquote class="wp-block-quote is-style-large">
+<p>&#8230; this is my preferred way of hooking up CSS and JavaScript interactions. Here’s [an]&#160;<a href="https://codepen.io/adactio/pen/oxLNwY">old CodePen</a>&#160;where you can see it in action</p>
+</blockquote>
+<p>Which is this classic matchup:</p>
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">[aria-hidden='true'] {
+  display: none;
+}</code></pre>
+<p>There are plenty of more opportunities. Take a tab design component:</p>
+<p>CodePen Embed Fallback</p>
+<p>Since these tabs (using <a href="https://www.google.com/search?q=reach+ui&#38;oq=reach+ui&#38;aqs=chrome..69i57j69i59j69i60l2j69i61j69i60l2j69i61.692j0j7&#38;sourceid=chrome&#38;ie=UTF-8">Reach UI</a>&#8230; <a href="https://css-tricks.com/aria-in-css/" class="read-more">Read article <span class="screen-reader-text"> &#8220;ARIA in CSS&#8221;</span></a></p>
+<hr />
+<p>The post <a rel="nofollow" href="https://css-tricks.com/aria-in-css/">ARIA in CSS</a> appeared first on <a rel="nofollow" href="https://css-tricks.com">CSS-Tricks</a>.</p>
+<p>You can support CSS-Tricks by being an <a href="https://css-tricks.com/product/mvp-supporter/">MVP Supporter</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Jeremey reacting to <a href="https://twitter.com/SaraSoueidan/status/1319992242262757377">Sara&#8217;s tweet</a>, about using <code>[aria-*]</code> selectors instead of classes when the styling you are applying is directly related to the ARIA state.</p>
+
+
+
+<blockquote class="wp-block-quote is-style-large"><p>&#8230; this is my preferred way of hooking up CSS and JavaScript interactions. Here’s [an]&nbsp;<a href="https://codepen.io/adactio/pen/oxLNwY">old CodePen</a>&nbsp;where you can see it in action</p></blockquote>
+
+
+
+<p>Which is this classic matchup:</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">[aria-hidden='true'] {
+  display: none;
+}</code></pre>
+
+
+
+<span id="more-325332"></span>
+
+
+
+<p>There are plenty of more opportunities. Take a tab design component:</p>
+
+
+
+<div class="wp-block-cp-codepen-gutenberg-embed-block cp_embed_wrapper"><iframe id="cp_embed_gOMPWgJ" src="//codepen.io/anon/embed/gOMPWgJ?height=450&amp;theme-id=1&amp;slug-hash=gOMPWgJ&amp;default-tab=css,result" height="450" scrolling="no" frameborder="0" allowfullscreen allowpaymentrequest name="CodePen Embed gOMPWgJ" title="CodePen Embed gOMPWgJ" class="cp_embed_iframe" style="width:100%;overflow:hidden">CodePen Embed Fallback</iframe></div>
+
+
+
+<p>Since these tabs (using <a href="https://www.google.com/search?q=reach+ui&amp;oq=reach+ui&amp;aqs=chrome..69i57j69i59j69i60l2j69i61j69i60l2j69i61.692j0j7&amp;sourceid=chrome&amp;ie=UTF-8">Reach UI</a>) are already applying proper ARIA states for things like which tab is active, they don&#8217;t even bother with class name manipulation. To style the active state, you select the <code>&lt;button&gt;</code> with a data attribute and ARIA state like:</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">[data-reach-tab][aria-selected="true"] {
+  background: white;
+}</code></pre>
+
+
+
+<p>The panels with the content? Those have an ARIA role, so are styled that way:</p>
+
+
+
+<pre rel="CSS" class="wp-block-csstricks-code-block language-css" data-line=""><code markup="tt">[role="tabpanel"] {
+  background: white;
+}</code></pre>
+
+
+
+<p>ARIA is also matches up with variations sometimes, like&#8230;</p>
+
+
+
+<pre rel="HTML" class="wp-block-csstricks-code-block language-markup" data-line=""><code markup="tt">[aria-orientation="vertical"] {
+  flex-direction: column;
+}</code></pre>
+
+
+
+<p>If you&#8217;re like, wait, what&#8217;s ARIA? Heydon&#8217;s new show <em>Webbed Briefs</em> has <a href="https://briefs.video/#pilot">a funny introduction to ARIA</a> as the pilot episode.</p>
+<p><a href="https://adactio.com/journal/17566" title="Direct link to featured article">Direct Link to Article</a> &#8212; <a href="https://css-tricks.com/aria-in-css/">Permalink</a></p><hr />
+<p>The post <a rel="nofollow" href="https://css-tricks.com/aria-in-css/">ARIA in CSS</a> appeared first on <a rel="nofollow" href="https://css-tricks.com">CSS-Tricks</a>.</p>
+<p>You can support CSS-Tricks by being an <a href="https://css-tricks.com/product/mvp-supporter/">MVP Supporter</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://css-tricks.com/aria-in-css/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">325332</post-id>	</item>
+	</channel>
+</rss>

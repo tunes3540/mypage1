@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" media="screen" href="/~d/styles/rss2full.xsl"?><?xml-stylesheet type="text/css" media="screen" href="http://feed.dilbert.com/~d/styles/itemcontent.css"?><rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:rawvoice="http://www.rawvoice.com/rawvoiceRssModule/" xmlns:googleplay="http://www.google.com/schemas/play-podcasts/1.0" xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0" version="2.0">
+
+<channel>
+	<title>Dilbert Blog</title>
+	
+	<link>http://blog.dilbert.com</link>
+	<description>Dilbert Blog</description>
+	<lastBuildDate>Fri, 12 Oct 2018 19:47:23 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.9.8</generator>
+<!-- podcast_generator="Blubrry PowerPress/7.4" mode="simple" feedslug="feed" Blubrry PowerPress Podcasting plugin for WordPress (https://www.blubrry.com/powerpress/) -->
+	<itunes:summary><![CDATA[Scott Adams is best known as the creator of the Dilbert comic strip. But in his daily (sometimes twice daily) podcasts, Adams uses his training as a hypnotist and a lifelong student of persuasion to analyse current events (mostly Trump-related) through a persuasion lense. In so doing, Adams offers you a new way to understand your reality. You can also expect to pick up some valuable persuasion techniques along the way.<br />
+<br />
+These podcasts are the audio channels from Adams' popular Periscope videos. If you hear pauses and interruptions, Adams is probably reading comments as they come across his Periscope screen. Adams' Periscope listeners requested that he convert the Periscope videos into podcast files so they can be played offline and also use less battery power.<br />
+<br />
+Most of what you will hear is spontaneous, unrehearsed and casual. The best way to listen is while sipping your favorite beverage.]]></itunes:summary>
+	<itunes:author>Dilbert Blog</itunes:author>
+	<itunes:explicit>yes</itunes:explicit>
+	<itunes:image href="http://blog.dilbert.com/wp-content/uploads/powerpress/Scott_with_coffee_mug.jpg" />
+	<itunes:type>episodic</itunes:type>
+	<itunes:owner>
+		<itunes:name>Dilbert Blog</itunes:name>
+		<itunes:email>scottadams925@gmail.com</itunes:email>
+	</itunes:owner>
+	<managingEditor>scottadams925@gmail.com (Dilbert Blog)</managingEditor>
+	<itunes:subtitle>Provocative thoughts about persuasion, politics, self-improvement, and the nature of reality</itunes:subtitle>
+	<image>
+		<title>Dilbert Blog</title>
+		<url>http://blog.dilbert.com/wp-content/uploads/powerpress/Scott_with_coffee_mug.jpg</url>
+		<link>http://blog.dilbert.com</link>
+	</image>
+	<itunes:category text="News &amp; Politics">
+	</itunes:category>
+	<atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="http://feed.dilbert.com/dilbert/blog" /><feedburner:info uri="dilbert/blog" /><atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="hub" href="http://pubsubhubbub.appspot.com/" /><item>
+		<title>Episode 258 Scott Adams: Kanye is Using Systems over Goals to Solve Problems</title>
+		<link>http://feed.dilbert.com/~r/dilbert/blog/~3/fa_EKQWTCbc/</link>
+		<pubDate>Fri, 12 Oct 2018 19:47:23 +0000</pubDate>
+		<dc:creator><![CDATA[Scott Adams]]></dc:creator>
+				<category><![CDATA[Podcast]]></category>
+		<category><![CDATA[Kanye]]></category>
+		<category><![CDATA[president trump]]></category>
+		<category><![CDATA[Scott Adams]]></category>
+		<category><![CDATA[Systems vs. Goals]]></category>
+
+		<guid isPermaLink="false">http://blog.dilbert.com/?p=17676</guid>
+		<description><![CDATA[<p>Topic:  Kanye’s approach to helping inner cities is a system rather than a goal I fund my Periscopes and podcasts via audience micro-donations on Patreon. I prefer this method over accepting advertisements or working for a &#8220;boss&#8221; somewhere because it keeps my voice independent. No one owns me, and that is rare. I&#8217;m trying in [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://blog.dilbert.com/2018/10/12/episode-258-scott-adams-kanye-is-using-systems-over-goals-to-solve-problems/">Episode 258 Scott Adams: Kanye is Using Systems over Goals to Solve Problems</a> appeared first on <a rel="nofollow" href="http://blog.dilbert.com">Dilbert Blog</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img class="aligncenter size-full wp-image-17674" src="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-258.png" alt="" width="695" height="392" srcset="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-258.png 695w, http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-258-300x169.png 300w" sizes="(max-width: 695px) 100vw, 695px" /></p>
+<p><b>Topic:</b><span class="Apple-converted-space"> </span></p>
+<ul>
+<li>Kanye’s approach to helping inner cities is a system rather than a goal</li>
+</ul>
+<hr />
+<p>I fund my Periscopes and podcasts via audience <a href="https://www.patreon.com/scottadamssays">micro-donations on Patreon</a>. I prefer this method over accepting advertisements or working for a &#8220;boss&#8221; somewhere because it keeps my voice independent. No one owns me, and that is rare. I&#8217;m trying in my own way to make the world a better place, and your contributions help me stay inspired to do that.</p>
+<p>See <a href="https://www.pscp.tv/ScottAdamsSays/1nAKERDOwylGL">all of my Periscope videos</a> here.</p>
+<p>Find my <a href="https://interface.whenhub.com">WhenHub Interface app</a> here.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>The post <a rel="nofollow" href="http://blog.dilbert.com/2018/10/12/episode-258-scott-adams-kanye-is-using-systems-over-goals-to-solve-problems/">Episode 258 Scott Adams: Kanye is Using Systems over Goals to Solve Problems</a> appeared first on <a rel="nofollow" href="http://blog.dilbert.com">Dilbert Blog</a>.</p>
+<img src="http://feeds.feedburner.com/~r/dilbert/blog/~4/fa_EKQWTCbc" height="1" width="1" alt=""/>]]></content:encoded>
+	<enclosure url="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-258-Scott-Adams-Kanye-is-Using-Systems-over-Goals-to-Solve-Problems.mp3" length="24444414" type="audio/mpeg" />
+		<itunes:subtitle>Topic:  Kanye’s approach to helping inner cities is a system rather than a goal I fund my Periscopes and podcasts via audience micro-donations on Patreon. I prefer this method over accepting advertisements or working for a “boss” somewhere because it k...</itunes:subtitle>
+		<itunes:summary><![CDATA[Topic:  Kanye’s approach to helping inner cities is a system rather than a goal I fund my Periscopes and podcasts via audience micro-donations on Patreon. I prefer this method over accepting advertisements or working for a &#8220;boss&#8221; somewhere because it keeps my voice independent. No one owns me, and that is rare. I&#8217;m trying in [&hellip;]]]></itunes:summary>
+		<itunes:author>Dilbert Blog</itunes:author>
+		<itunes:explicit>yes</itunes:explicit>
+		<itunes:duration>10:11</itunes:duration>
+	<feedburner:origLink>http://blog.dilbert.com/2018/10/12/episode-258-scott-adams-kanye-is-using-systems-over-goals-to-solve-problems/</feedburner:origLink></item>
+		<item>
+		<title>Episode 257 Scott Adams: The Kanye Meeting, 13th Amendment and Turkey</title>
+		<link>http://feed.dilbert.com/~r/dilbert/blog/~3/-wrCs_9VzJE/</link>
+		<pubDate>Fri, 12 Oct 2018 15:20:47 +0000</pubDate>
+		<dc:creator><![CDATA[Scott Adams]]></dc:creator>
+				<category><![CDATA[Podcast]]></category>
+		<category><![CDATA[CNN]]></category>
+		<category><![CDATA[Cultural Gravity]]></category>
+		<category><![CDATA[Don Lemon]]></category>
+		<category><![CDATA[Kanye]]></category>
+		<category><![CDATA[Nia-Malika Henderson]]></category>
+		<category><![CDATA[Pastor Brunson]]></category>
+		<category><![CDATA[president trump]]></category>
+		<category><![CDATA[Scott Adams]]></category>
+
+		<guid isPermaLink="false">http://blog.dilbert.com/?p=17673</guid>
+		<description><![CDATA[<p>Topics:  CNN’s attempt to “Cultural Gravity” Kanye The alarming attacks on Kanye for trying to make a positive difference CNN weaponized its staff and Don Lemon called it a “minstrel show” CNN’s Nia-Malika Henderson’s out of context, list hit piece 13th Amendment of Constitution, understanding Kanye’s point President Trump crashed Turkey’s economy to free Pastor [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://blog.dilbert.com/2018/10/12/episode-257-scott-adams-the-kanye-meeting-13th-amendment-and-turkey/">Episode 257 Scott Adams: The Kanye Meeting, 13th Amendment and Turkey</a> appeared first on <a rel="nofollow" href="http://blog.dilbert.com">Dilbert Blog</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img class="aligncenter size-full wp-image-17671" src="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-257.png" alt="" width="617" height="414" srcset="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-257.png 617w, http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-257-300x201.png 300w" sizes="(max-width: 617px) 100vw, 617px" /></p>
+<p><b>Topics:</b><span class="Apple-converted-space"> </span></p>
+<ul>
+<li>CNN’s attempt to “Cultural Gravity” Kanye</li>
+<li>The alarming attacks on Kanye for trying to make a positive difference</li>
+<li>CNN weaponized its staff and Don Lemon called it a “minstrel show”</li>
+<li>CNN’s Nia-Malika Henderson’s out of context, list hit piece</li>
+<li>13th Amendment of Constitution, understanding Kanye’s point</li>
+<li>President Trump crashed Turkey’s economy to free Pastor Brunson</li>
+</ul>
+<hr />
+<p>I fund my Periscopes and podcasts via audience <a href="https://www.patreon.com/scottadamssays">micro-donations on Patreon</a>. I prefer this method over accepting advertisements or working for a &#8220;boss&#8221; somewhere because it keeps my voice independent. No one owns me, and that is rare. I&#8217;m trying in my own way to make the world a better place, and your contributions help me stay inspired to do that.</p>
+<p>See <a href="https://www.pscp.tv/ScottAdamsSays/1nAKERDOwylGL">all of my Periscope videos</a> here.</p>
+<p>Find my <a href="https://interface.whenhub.com">WhenHub Interface app</a> here.</p>
+<p>The post <a rel="nofollow" href="http://blog.dilbert.com/2018/10/12/episode-257-scott-adams-the-kanye-meeting-13th-amendment-and-turkey/">Episode 257 Scott Adams: The Kanye Meeting, 13th Amendment and Turkey</a> appeared first on <a rel="nofollow" href="http://blog.dilbert.com">Dilbert Blog</a>.</p>
+<img src="http://feeds.feedburner.com/~r/dilbert/blog/~4/-wrCs_9VzJE" height="1" width="1" alt=""/>]]></content:encoded>
+	<enclosure url="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-257-Scott-Adams-The-Kanye-Meeting-13th-Amendment-and-Turkey.mp3" length="40059787" type="audio/mpeg" />
+		<itunes:subtitle>Topics:  CNN’s attempt to “Cultural Gravity” Kanye The alarming attacks on Kanye for trying to make a positive difference CNN weaponized its staff and Don Lemon called it a “minstrel show” CNN’s Nia-Malika Henderson’s out of context,</itunes:subtitle>
+		<itunes:summary><![CDATA[Topics:  CNN’s attempt to “Cultural Gravity” Kanye The alarming attacks on Kanye for trying to make a positive difference CNN weaponized its staff and Don Lemon called it a “minstrel show” CNN’s Nia-Malika Henderson’s out of context, list hit piece 13th Amendment of Constitution, understanding Kanye’s point President Trump crashed Turkey’s economy to free Pastor [&hellip;]]]></itunes:summary>
+		<itunes:author>Dilbert Blog</itunes:author>
+		<itunes:explicit>yes</itunes:explicit>
+		<itunes:duration>41:44</itunes:duration>
+	<feedburner:origLink>http://blog.dilbert.com/2018/10/12/episode-257-scott-adams-the-kanye-meeting-13th-amendment-and-turkey/</feedburner:origLink></item>
+		<item>
+		<title>Episode 256 Scott Adams: Kanye and President Trump</title>
+		<link>http://feed.dilbert.com/~r/dilbert/blog/~3/h8i8xiVYfRU/</link>
+		<pubDate>Thu, 11 Oct 2018 19:56:39 +0000</pubDate>
+		<dc:creator><![CDATA[Scott Adams]]></dc:creator>
+				<category><![CDATA[Podcast]]></category>
+		<category><![CDATA[Dale]]></category>
+		<category><![CDATA[Jim Brown]]></category>
+		<category><![CDATA[Kanye]]></category>
+		<category><![CDATA[president trump]]></category>
+		<category><![CDATA[Scott Adams]]></category>
+
+		<guid isPermaLink="false">http://blog.dilbert.com/?p=17670</guid>
+		<description><![CDATA[<p>Topics:  Kanye hugged President Trump, complimented him… then disagreed with him on “stop and frisk” President Trump was persuaded to reconsider What other celebrities made a difference lately? Kanye did a “pace and lead” maneuver on President Trump It was a lovefest Watch how the haters attack and dismiss the meetings significance I fund my [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://blog.dilbert.com/2018/10/11/episode-256-scott-adams-kanye-and-president-trump/">Episode 256 Scott Adams: Kanye and President Trump</a> appeared first on <a rel="nofollow" href="http://blog.dilbert.com">Dilbert Blog</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img class="aligncenter size-full wp-image-17668" src="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-256.png" alt="" width="718" height="479" srcset="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-256.png 718w, http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-256-300x200.png 300w" sizes="(max-width: 718px) 100vw, 718px" /></p>
+<p><b>Topics:</b><span class="Apple-converted-space"> </span></p>
+<ul>
+<li>Kanye hugged President Trump, complimented him…</li>
+<li>then disagreed with him on “stop and frisk”
+<ul>
+<li>President Trump was persuaded to reconsider</li>
+<li>What other celebrities made a difference lately?</li>
+</ul>
+</li>
+<li>Kanye did a “pace and lead” maneuver on President Trump</li>
+<li>It was a lovefest
+<ul>
+<li>Watch how the haters attack and dismiss the meetings significance</li>
+</ul>
+</li>
+</ul>
+<hr />
+<p>I fund my Periscopes and podcasts via audience <a href="https://www.patreon.com/scottadamssays">micro-donations on Patreon</a>. I prefer this method over accepting advertisements or working for a &#8220;boss&#8221; somewhere because it keeps my voice independent. No one owns me, and that is rare. I&#8217;m trying in my own way to make the world a better place, and your contributions help me stay inspired to do that.</p>
+<p>See <a href="https://www.pscp.tv/ScottAdamsSays/1nAKERDOwylGL">all of my Periscope videos</a> here.</p>
+<p>Find my <a href="https://interface.whenhub.com">WhenHub Interface app</a> here.</p>
+<p>The post <a rel="nofollow" href="http://blog.dilbert.com/2018/10/11/episode-256-scott-adams-kanye-and-president-trump/">Episode 256 Scott Adams: Kanye and President Trump</a> appeared first on <a rel="nofollow" href="http://blog.dilbert.com">Dilbert Blog</a>.</p>
+<img src="http://feeds.feedburner.com/~r/dilbert/blog/~4/h8i8xiVYfRU" height="1" width="1" alt=""/>]]></content:encoded>
+	<enclosure url="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-256-Scott-Adams-Kanye-and-President-Trump.mp3" length="38093916" type="audio/mpeg" />
+		<itunes:subtitle>Topics:  Kanye hugged President Trump, complimented him… then disagreed with him on “stop and frisk” President Trump was persuaded to reconsider What other celebrities made a difference lately? Kanye did a “pace and lead” maneuver on President Trump It...</itunes:subtitle>
+		<itunes:summary><![CDATA[Topics:  Kanye hugged President Trump, complimented him… then disagreed with him on “stop and frisk” President Trump was persuaded to reconsider What other celebrities made a difference lately? Kanye did a “pace and lead” maneuver on President Trump It was a lovefest Watch how the haters attack and dismiss the meetings significance I fund my [&hellip;]]]></itunes:summary>
+		<itunes:author>Dilbert Blog</itunes:author>
+		<itunes:explicit>yes</itunes:explicit>
+		<itunes:duration>15:52</itunes:duration>
+	<feedburner:origLink>http://blog.dilbert.com/2018/10/11/episode-256-scott-adams-kanye-and-president-trump/</feedburner:origLink></item>
+		<item>
+		<title>Episode 255 Scott Adams: Trump’s Moral Code, the Two Movies, Angry Dems, Walls</title>
+		<link>http://feed.dilbert.com/~r/dilbert/blog/~3/8hc3OpWJb3Y/</link>
+		<pubDate>Thu, 11 Oct 2018 15:53:20 +0000</pubDate>
+		<dc:creator><![CDATA[Scott Adams]]></dc:creator>
+				<category><![CDATA[Podcast]]></category>
+		<category><![CDATA[Bakari Sellers]]></category>
+		<category><![CDATA[Dina Powell]]></category>
+		<category><![CDATA[Fentanyl]]></category>
+		<category><![CDATA[Hillary]]></category>
+		<category><![CDATA[Juan Williams]]></category>
+		<category><![CDATA[Kanye]]></category>
+		<category><![CDATA[newt gingrich]]></category>
+		<category><![CDATA[Nikki Haley]]></category>
+		<category><![CDATA[president trump]]></category>
+		<category><![CDATA[Rand Paul]]></category>
+		<category><![CDATA[Scott Adams]]></category>
+		<category><![CDATA[Ye]]></category>
+
+		<guid isPermaLink="false">http://blog.dilbert.com/?p=17667</guid>
+		<description><![CDATA[<p>Topics:  Drug sniffing dogs are effective at detecting Fentanyl Can we train our family dogs to do that if we have teenagers? Continuing uproar over Bakari Sellers and CNN panel Kanye comments Juan Williams statement about universal health care Juan says it will save money Conservatives says it will cost 32 trillion dollars Newt Gingrich [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://blog.dilbert.com/2018/10/11/episode-255-scott-adams-trumps-moral-code-the-two-movies-angry-dems-walls/">Episode 255 Scott Adams: Trump’s Moral Code, the Two Movies, Angry Dems, Walls</a> appeared first on <a rel="nofollow" href="http://blog.dilbert.com">Dilbert Blog</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img class="aligncenter size-full wp-image-17665" src="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-255.png" alt="" width="667" height="408" srcset="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-255.png 667w, http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-255-300x184.png 300w" sizes="(max-width: 667px) 100vw, 667px" /></p>
+<p><b>Topics:</b><span class="Apple-converted-space"> </span></p>
+<ul>
+<li>Drug sniffing dogs are effective at detecting Fentanyl</li>
+<li>Can we train our family dogs to do that if we have teenagers?</li>
+<li>Continuing uproar over Bakari Sellers and CNN panel Kanye comments</li>
+<li>Juan Williams statement about universal health care</li>
+<li>Juan says it will save money</li>
+<li>Conservatives says it will cost 32 trillion dollars</li>
+<li>Newt Gingrich believes the wall will help with Fentanyl trafficking</li>
+<li>A social process for convincing others to register and vote</li>
+<li>Dems have decided that they need to be more like President Trump</li>
+<li>Universal health care is a Trump-like “big ask” to begin negotiations</li>
+<li>In capitalism, if you have negotiating leverage…you use it</li>
+<li>The “theatre of Trump” is intentional and effective</li>
+<li>Hillary “never got it”</li>
+<li>Rand Paul and Kanye get it</li>
+<li>Managing ego is an important skill that President Trump and Kanye share</li>
+<li>Replacing Nikki Haley with Dina Powell?</li>
+</ul>
+<hr />
+<p>I fund my Periscopes and podcasts via audience <a href="https://www.patreon.com/scottadamssays">micro-donations on Patreon</a>. I prefer this method over accepting advertisements or working for a &#8220;boss&#8221; somewhere because it keeps my voice independent. No one owns me, and that is rare. I&#8217;m trying in my own way to make the world a better place, and your contributions help me stay inspired to do that.</p>
+<p>See <a href="https://www.pscp.tv/ScottAdamsSays/1nAKERDOwylGL">all of my Periscope videos</a> here.</p>
+<p>Find my <a href="https://interface.whenhub.com">WhenHub Interface app</a> here.</p>
+<p>The post <a rel="nofollow" href="http://blog.dilbert.com/2018/10/11/episode-255-scott-adams-trumps-moral-code-the-two-movies-angry-dems-walls/">Episode 255 Scott Adams: Trump’s Moral Code, the Two Movies, Angry Dems, Walls</a> appeared first on <a rel="nofollow" href="http://blog.dilbert.com">Dilbert Blog</a>.</p>
+<img src="http://feeds.feedburner.com/~r/dilbert/blog/~4/8hc3OpWJb3Y" height="1" width="1" alt=""/>]]></content:encoded>
+	<enclosure url="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-255-Scott-Adams-Trumps-Moral-Code-the-Two-Movies-Angry-Dems-Walls.mp3" length="44494019" type="audio/mpeg" />
+		<itunes:subtitle>Topics:  Drug sniffing dogs are effective at detecting Fentanyl Can we train our family dogs to do that if we have teenagers? Continuing uproar over Bakari Sellers and CNN panel Kanye comments Juan Williams statement about universal health care Juan sa...</itunes:subtitle>
+		<itunes:summary><![CDATA[Topics:  Drug sniffing dogs are effective at detecting Fentanyl Can we train our family dogs to do that if we have teenagers? Continuing uproar over Bakari Sellers and CNN panel Kanye comments Juan Williams statement about universal health care Juan says it will save money Conservatives says it will cost 32 trillion dollars Newt Gingrich [&hellip;]]]></itunes:summary>
+		<itunes:author>Dilbert Blog</itunes:author>
+		<itunes:explicit>yes</itunes:explicit>
+		<itunes:duration>1:01:48</itunes:duration>
+	<feedburner:origLink>http://blog.dilbert.com/2018/10/11/episode-255-scott-adams-trumps-moral-code-the-two-movies-angry-dems-walls/</feedburner:origLink></item>
+		<item>
+		<title>Episode 254 Scott Adams: Nuclear Power, Kanye, Cultural Gravity</title>
+		<link>http://feed.dilbert.com/~r/dilbert/blog/~3/fkoE-0Gtd74/</link>
+		<pubDate>Wed, 10 Oct 2018 16:01:02 +0000</pubDate>
+		<dc:creator><![CDATA[Scott Adams]]></dc:creator>
+				<category><![CDATA[Podcast]]></category>
+		<category><![CDATA[Bakari Sellers]]></category>
+		<category><![CDATA[Cultural Gravity]]></category>
+		<category><![CDATA[Global Warming]]></category>
+		<category><![CDATA[Kanye]]></category>
+		<category><![CDATA[president trump]]></category>
+		<category><![CDATA[Scott Adams]]></category>
+		<category><![CDATA[Ye]]></category>
+
+		<guid isPermaLink="false">http://blog.dilbert.com/?p=17663</guid>
+		<description><![CDATA[<p>Topics:  WSJ climate change article says include opportunity benefits CNN, Bakari Sellers calls Kanye “anti-intellectual” “Cultural gravity” holds people back, trying to hold back Kanye Me too movement unintended result Male Executives are avoiding one-on-one female contact President Trump’s opinion on vaccine safety I fund my Periscopes and podcasts via audience micro-donations on Patreon. I [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://blog.dilbert.com/2018/10/10/episode-254-scott-adams-nuclear-power-kanye-cultural-gravity/">Episode 254 Scott Adams: Nuclear Power, Kanye, Cultural Gravity</a> appeared first on <a rel="nofollow" href="http://blog.dilbert.com">Dilbert Blog</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img class="aligncenter size-full wp-image-17661" src="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-254.png" alt="" width="626" height="386" srcset="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-254.png 626w, http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-254-300x185.png 300w" sizes="(max-width: 626px) 100vw, 626px" /></p>
+<p><b>Topics:</b><span class="Apple-converted-space"> </span></p>
+<ul>
+<li>WSJ climate change article says include opportunity benefits</li>
+<li>CNN, Bakari Sellers calls Kanye “anti-intellectual”</li>
+<li>“Cultural gravity” holds people back, trying to hold back Kanye</li>
+<li>Me too movement unintended result
+<ul>
+<li>Male Executives are avoiding one-on-one female contact</li>
+</ul>
+</li>
+<li>President Trump’s opinion on vaccine safety</li>
+</ul>
+<hr />
+<p>I fund my Periscopes and podcasts via audience <a href="https://www.patreon.com/scottadamssays">micro-donations on Patreon</a>. I prefer this method over accepting advertisements or working for a &#8220;boss&#8221; somewhere because it keeps my voice independent. No one owns me, and that is rare. I&#8217;m trying in my own way to make the world a better place, and your contributions help me stay inspired to do that.</p>
+<p>See <a href="https://www.pscp.tv/ScottAdamsSays/1nAKERDOwylGL">all of my Periscope videos</a> here.</p>
+<p>Find my <a href="https://interface.whenhub.com">WhenHub Interface app</a> here.</p>
+<p>The post <a rel="nofollow" href="http://blog.dilbert.com/2018/10/10/episode-254-scott-adams-nuclear-power-kanye-cultural-gravity/">Episode 254 Scott Adams: Nuclear Power, Kanye, Cultural Gravity</a> appeared first on <a rel="nofollow" href="http://blog.dilbert.com">Dilbert Blog</a>.</p>
+<img src="http://feeds.feedburner.com/~r/dilbert/blog/~4/fkoE-0Gtd74" height="1" width="1" alt=""/>]]></content:encoded>
+	<enclosure url="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-254-Scott-Adams-Nuclear-Power-Kanye-Cultural-Gravity.mp3" length="39798563" type="audio/mpeg" />
+		<itunes:subtitle>Topics:  WSJ climate change article says include opportunity benefits CNN, Bakari Sellers calls Kanye “anti-intellectual” “Cultural gravity” holds people back, trying to hold back Kanye Me too movement unintended result Male Executives are avoiding one...</itunes:subtitle>
+		<itunes:summary><![CDATA[Topics:  WSJ climate change article says include opportunity benefits CNN, Bakari Sellers calls Kanye “anti-intellectual” “Cultural gravity” holds people back, trying to hold back Kanye Me too movement unintended result Male Executives are avoiding one-on-one female contact President Trump’s opinion on vaccine safety I fund my Periscopes and podcasts via audience micro-donations on Patreon. I [&hellip;]]]></itunes:summary>
+		<itunes:author>Dilbert Blog</itunes:author>
+		<itunes:explicit>yes</itunes:explicit>
+		<itunes:duration>41:27</itunes:duration>
+	<feedburner:origLink>http://blog.dilbert.com/2018/10/10/episode-254-scott-adams-nuclear-power-kanye-cultural-gravity/</feedburner:origLink></item>
+		<item>
+		<title>Episode 253 Scott Adams: A Persuasion Lesson While Persuading You to Try the Interface App</title>
+		<link>http://feed.dilbert.com/~r/dilbert/blog/~3/D0myLlueKIM/</link>
+		<pubDate>Tue, 09 Oct 2018 23:25:41 +0000</pubDate>
+		<dc:creator><![CDATA[Scott Adams]]></dc:creator>
+				<category><![CDATA[Podcast]]></category>
+		<category><![CDATA[Interface App]]></category>
+		<category><![CDATA[Persuasion]]></category>
+		<category><![CDATA[Scott Adams]]></category>
+		<category><![CDATA[whenhub]]></category>
+
+		<guid isPermaLink="false">http://blog.dilbert.com/?p=17660</guid>
+		<description><![CDATA[<p>Topics:  Key persuasion tips throughout the discussion Why, how, when to use various persuasion techniques, demonstrated I fund my Periscopes and podcasts via audience micro-donations on Patreon. I prefer this method over accepting advertisements or working for a &#8220;boss&#8221; somewhere because it keeps my voice independent. No one owns me, and that is rare. I&#8217;m [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://blog.dilbert.com/2018/10/09/episode-253-scott-adams-a-persuasion-lesson-while-persuading-you-to-try-the-interface-app/">Episode 253 Scott Adams: A Persuasion Lesson While Persuading You to Try the Interface App</a> appeared first on <a rel="nofollow" href="http://blog.dilbert.com">Dilbert Blog</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img class="aligncenter size-full wp-image-17658" src="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-253.png" alt="" width="727" height="444" srcset="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-253.png 727w, http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-253-300x183.png 300w" sizes="(max-width: 727px) 100vw, 727px" /></p>
+<p><b>Topics:</b><span class="Apple-converted-space"> </span></p>
+<ul>
+<li>Key persuasion tips throughout the discussion</li>
+<li>Why, how, when to use various persuasion techniques, demonstrated</li>
+</ul>
+<hr />
+<p>I fund my Periscopes and podcasts via audience <a href="https://www.patreon.com/scottadamssays">micro-donations on Patreon</a>. I prefer this method over accepting advertisements or working for a &#8220;boss&#8221; somewhere because it keeps my voice independent. No one owns me, and that is rare. I&#8217;m trying in my own way to make the world a better place, and your contributions help me stay inspired to do that.</p>
+<p>See <a href="https://www.pscp.tv/ScottAdamsSays/1nAKERDOwylGL">all of my Periscope videos</a> here.</p>
+<p>Find my <a href="https://interface.whenhub.com">WhenHub Interface app</a> here.</p>
+<p>The post <a rel="nofollow" href="http://blog.dilbert.com/2018/10/09/episode-253-scott-adams-a-persuasion-lesson-while-persuading-you-to-try-the-interface-app/">Episode 253 Scott Adams: A Persuasion Lesson While Persuading You to Try the Interface App</a> appeared first on <a rel="nofollow" href="http://blog.dilbert.com">Dilbert Blog</a>.</p>
+<img src="http://feeds.feedburner.com/~r/dilbert/blog/~4/D0myLlueKIM" height="1" width="1" alt=""/>]]></content:encoded>
+	<enclosure url="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-253-Scott-Adams-A-Persuasion-Lesson-While-Persuading-You-to-Try-the-Interface-App.mp3" length="35241972" type="audio/mpeg" />
+		<itunes:subtitle>Topics:  Key persuasion tips throughout the discussion Why, how, when to use various persuasion techniques, demonstrated I fund my Periscopes and podcasts via audience micro-donations on Patreon. I prefer this method over accepting advertisements or wo...</itunes:subtitle>
+		<itunes:summary><![CDATA[Topics:  Key persuasion tips throughout the discussion Why, how, when to use various persuasion techniques, demonstrated I fund my Periscopes and podcasts via audience micro-donations on Patreon. I prefer this method over accepting advertisements or working for a &#8220;boss&#8221; somewhere because it keeps my voice independent. No one owns me, and that is rare. I&#8217;m [&hellip;]]]></itunes:summary>
+		<itunes:author>Dilbert Blog</itunes:author>
+		<itunes:explicit>yes</itunes:explicit>
+		<itunes:duration>36:43</itunes:duration>
+	<feedburner:origLink>http://blog.dilbert.com/2018/10/09/episode-253-scott-adams-a-persuasion-lesson-while-persuading-you-to-try-the-interface-app/</feedburner:origLink></item>
+		<item>
+		<title>Episode 252 Scott Adams: Israeli Bots, Ye, North Korea, #FentanylChina, Colbert</title>
+		<link>http://feed.dilbert.com/~r/dilbert/blog/~3/aeeLoYvsKps/</link>
+		<pubDate>Tue, 09 Oct 2018 15:59:35 +0000</pubDate>
+		<dc:creator><![CDATA[Scott Adams]]></dc:creator>
+				<category><![CDATA[Podcast]]></category>
+		<category><![CDATA[abortion]]></category>
+		<category><![CDATA[Adam Schiff]]></category>
+		<category><![CDATA[Ariel Dumas]]></category>
+		<category><![CDATA[Colbert]]></category>
+		<category><![CDATA[FentanylChina]]></category>
+		<category><![CDATA[Jared Kushner]]></category>
+		<category><![CDATA[Kanye]]></category>
+		<category><![CDATA[president trump]]></category>
+		<category><![CDATA[Scott Adams]]></category>
+		<category><![CDATA[Taylor Swift]]></category>
+		<category><![CDATA[Ye]]></category>
+
+		<guid isPermaLink="false">http://blog.dilbert.com/?p=17656</guid>
+		<description><![CDATA[<p>Topics:  Colbert writer’s comment clarification…48 hour rule satisfied? Kanye heading to the White House, meeting with POTUS and Jared North Korea prediction: Meeting will happen this year (December) 2 Chinese nationals producing Fentanyl have been identified Democrat concerns about the courts being too conservative Would any state be dumb enough to outlaw abortions? Clever persuasion [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://blog.dilbert.com/2018/10/09/episode-252-scott-adams-israeli-bots-ye-north-korea-fentanylchina-colbert/">Episode 252 Scott Adams: Israeli Bots, Ye, North Korea, #FentanylChina, Colbert</a> appeared first on <a rel="nofollow" href="http://blog.dilbert.com">Dilbert Blog</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img class="aligncenter size-full wp-image-17654" src="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-252.png" alt="" width="756" height="426" srcset="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-252.png 756w, http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-252-300x169.png 300w" sizes="(max-width: 756px) 100vw, 756px" /></p>
+<p><b>Topics:</b><span class="Apple-converted-space"> </span></p>
+<ul>
+<li>Colbert writer’s comment clarification…48 hour rule satisfied?</li>
+<li>Kanye heading to the White House, meeting with POTUS and Jared</li>
+<li>North Korea prediction: Meeting will happen this year (December)</li>
+<li>2 Chinese nationals producing Fentanyl have been identified</li>
+<li>Democrat concerns about the courts being too conservative</li>
+<li>Would any state be dumb enough to outlaw abortions?</li>
+<li>Clever persuasion play by Adam Schiff, 0+0=1</li>
+<li>Nuclear power plants, the only known solution for global warming</li>
+<li>President Trump’s comment about Taylor Swift</li>
+</ul>
+<hr />
+<p>I fund my Periscopes and podcasts via audience <a href="https://www.patreon.com/scottadamssays">micro-donations on Patreon</a>. I prefer this method over accepting advertisements or working for a &#8220;boss&#8221; somewhere because it keeps my voice independent. No one owns me, and that is rare. I&#8217;m trying in my own way to make the world a better place, and your contributions help me stay inspired to do that.</p>
+<p>See <a href="https://www.pscp.tv/ScottAdamsSays/1nAKERDOwylGL">all of my Periscope videos</a> here.</p>
+<p>Find my <a href="https://interface.whenhub.com">WhenHub Interface app</a> here.</p>
+<p>The post <a rel="nofollow" href="http://blog.dilbert.com/2018/10/09/episode-252-scott-adams-israeli-bots-ye-north-korea-fentanylchina-colbert/">Episode 252 Scott Adams: Israeli Bots, Ye, North Korea, #FentanylChina, Colbert</a> appeared first on <a rel="nofollow" href="http://blog.dilbert.com">Dilbert Blog</a>.</p>
+<img src="http://feeds.feedburner.com/~r/dilbert/blog/~4/aeeLoYvsKps" height="1" width="1" alt=""/>]]></content:encoded>
+	<enclosure url="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-252-Scott-Adams-Israeli-Bots-Ye-North-Korea-FentanylChina-Colbert.mp3" length="39269987" type="audio/mpeg" />
+		<itunes:subtitle>Topics:  Colbert writer’s comment clarification…48 hour rule satisfied? Kanye heading to the White House, meeting with POTUS and Jared North Korea prediction: Meeting will happen this year (December) 2 Chinese nationals producing Fentanyl have been ide...</itunes:subtitle>
+		<itunes:summary><![CDATA[Topics:  Colbert writer’s comment clarification…48 hour rule satisfied? Kanye heading to the White House, meeting with POTUS and Jared North Korea prediction: Meeting will happen this year (December) 2 Chinese nationals producing Fentanyl have been identified Democrat concerns about the courts being too conservative Would any state be dumb enough to outlaw abortions? Clever persuasion [&hellip;]]]></itunes:summary>
+		<itunes:author>Dilbert Blog</itunes:author>
+		<itunes:explicit>yes</itunes:explicit>
+		<itunes:duration>54:32</itunes:duration>
+	<feedburner:origLink>http://blog.dilbert.com/2018/10/09/episode-252-scott-adams-israeli-bots-ye-north-korea-fentanylchina-colbert/</feedburner:origLink></item>
+		<item>
+		<title>Episode 251 Scott Adams: North Korea, Climate Change, Guilty Until Innocent</title>
+		<link>http://feed.dilbert.com/~r/dilbert/blog/~3/B2ydfeCXaOk/</link>
+		<pubDate>Mon, 08 Oct 2018 16:00:35 +0000</pubDate>
+		<dc:creator><![CDATA[Scott Adams]]></dc:creator>
+				<category><![CDATA[Podcast]]></category>
+		<category><![CDATA[Chairman Kim]]></category>
+		<category><![CDATA[Dr. Drew]]></category>
+		<category><![CDATA[Fentanyl China]]></category>
+		<category><![CDATA[Global Warming]]></category>
+		<category><![CDATA[Jordan Peterson]]></category>
+		<category><![CDATA[Kanye]]></category>
+		<category><![CDATA[Kavanaugh]]></category>
+		<category><![CDATA[Pete Davidson]]></category>
+		<category><![CDATA[Pompeo]]></category>
+		<category><![CDATA[president trump]]></category>
+		<category><![CDATA[Scott Adams]]></category>
+		<category><![CDATA[SNL]]></category>
+		<category><![CDATA[Ye]]></category>
+
+		<guid isPermaLink="false">http://blog.dilbert.com/?p=17652</guid>
+		<description><![CDATA[<p>Topics:  MSM’s presentation of global warming is fraudulent President Trump’s rally comments… Democrats are the party of crime Democrats are bringing you Socialism-Venezuela Dr. Drew on Interface app yesterday Increasing postal fees from China to pay for fighting Fentanyl Jordan Peterson clarified his Kavanaugh statement Kanye is off Twitter Was the Pete Davidson SNL skit, [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://blog.dilbert.com/2018/10/08/episode-251-scott-adams-north-korea-climate-change-guilty-until-innocent/">Episode 251 Scott Adams: North Korea, Climate Change, Guilty Until Innocent</a> appeared first on <a rel="nofollow" href="http://blog.dilbert.com">Dilbert Blog</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img class="aligncenter size-full wp-image-17650" src="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-251.png" alt="" width="615" height="428" srcset="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-251.png 615w, http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-251-300x209.png 300w" sizes="(max-width: 615px) 100vw, 615px" /></p>
+<p><b>Topics:</b><span class="Apple-converted-space"> </span></p>
+<ul>
+<li>MSM’s presentation of global warming is fraudulent</li>
+<li>President Trump’s rally comments…
+<ul>
+<li>Democrats are the party of crime</li>
+<li>Democrats are bringing you Socialism-Venezuela</li>
+</ul>
+</li>
+<li>Dr. Drew on Interface app yesterday</li>
+<li>Increasing postal fees from China to pay for fighting Fentanyl</li>
+<li>Jordan Peterson clarified his Kavanaugh statement</li>
+<li>Kanye is off Twitter</li>
+<li>Was the Pete Davidson SNL skit, telling Kanye to “stay in his lane”?</li>
+<li>Pompeo and Chairman Kim big smiles photo</li>
+</ul>
+<hr />
+<p>I fund my Periscopes and podcasts via audience <a href="https://www.patreon.com/scottadamssays">micro-donations on Patreon</a>. I prefer this method over accepting advertisements or working for a &#8220;boss&#8221; somewhere because it keeps my voice independent. No one owns me, and that is rare. I&#8217;m trying in my own way to make the world a better place, and your contributions help me stay inspired to do that.</p>
+<p>See <a href="https://www.pscp.tv/ScottAdamsSays/1nAKERDOwylGL">all of my Periscope videos</a> here.</p>
+<p>Find my <a href="https://interface.whenhub.com">WhenHub Interface app</a> here.</p>
+<p>The post <a rel="nofollow" href="http://blog.dilbert.com/2018/10/08/episode-251-scott-adams-north-korea-climate-change-guilty-until-innocent/">Episode 251 Scott Adams: North Korea, Climate Change, Guilty Until Innocent</a> appeared first on <a rel="nofollow" href="http://blog.dilbert.com">Dilbert Blog</a>.</p>
+<img src="http://feeds.feedburner.com/~r/dilbert/blog/~4/B2ydfeCXaOk" height="1" width="1" alt=""/>]]></content:encoded>
+	<enclosure url="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-251-Scott-Adams-North-Korea-Climate-Change-Guilty-Until-Innocent.mp3" length="44602883" type="audio/mpeg" />
+		<itunes:subtitle>Topics:  MSM’s presentation of global warming is fraudulent President Trump’s rally comments… Democrats are the party of crime Democrats are bringing you Socialism-Venezuela Dr. Drew on Interface app yesterday Increasing postal fees from China to pay f...</itunes:subtitle>
+		<itunes:summary><![CDATA[Topics:  MSM’s presentation of global warming is fraudulent President Trump’s rally comments… Democrats are the party of crime Democrats are bringing you Socialism-Venezuela Dr. Drew on Interface app yesterday Increasing postal fees from China to pay for fighting Fentanyl Jordan Peterson clarified his Kavanaugh statement Kanye is off Twitter Was the Pete Davidson SNL skit, [&hellip;]]]></itunes:summary>
+		<itunes:author>Dilbert Blog</itunes:author>
+		<itunes:explicit>yes</itunes:explicit>
+		<itunes:duration>1:01:57</itunes:duration>
+	<feedburner:origLink>http://blog.dilbert.com/2018/10/08/episode-251-scott-adams-north-korea-climate-change-guilty-until-innocent/</feedburner:origLink></item>
+		<item>
+		<title>Episode 250 Scott Adams: Civil Unrest, North Korea and Rehab City</title>
+		<link>http://feed.dilbert.com/~r/dilbert/blog/~3/T5l59jiPOfg/</link>
+		<pubDate>Sun, 07 Oct 2018 15:33:29 +0000</pubDate>
+		<dc:creator><![CDATA[Scott Adams]]></dc:creator>
+				<category><![CDATA[Podcast]]></category>
+		<category><![CDATA[Bill Pulte]]></category>
+		<category><![CDATA[Blight Authority]]></category>
+		<category><![CDATA[Cathartic Theatre]]></category>
+		<category><![CDATA[Fentanyl China]]></category>
+		<category><![CDATA[Political Warming]]></category>
+		<category><![CDATA[president trump]]></category>
+		<category><![CDATA[Scott Adams]]></category>
+
+		<guid isPermaLink="false">http://blog.dilbert.com/?p=17649</guid>
+		<description><![CDATA[<p>Topics:  Gun control for registered Democrats? Would Dems vote for that? Raise postal fees from China, to pay for Fentanyl fighting tech? North Korean progress is looking really good Global warming, strong versus weak arguments I fund my Periscopes and podcasts via audience micro-donations on Patreon. I prefer this method over accepting advertisements or working [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://blog.dilbert.com/2018/10/07/episode-250-scott-adams-civil-unrest-north-korea-and-rehab-city/">Episode 250 Scott Adams: Civil Unrest, North Korea and Rehab City</a> appeared first on <a rel="nofollow" href="http://blog.dilbert.com">Dilbert Blog</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img class="aligncenter size-full wp-image-17647" src="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-250.png" alt="" width="629" height="391" srcset="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-250.png 629w, http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-250-300x186.png 300w" sizes="(max-width: 629px) 100vw, 629px" /></p>
+<p><b>Topics:</b><span class="Apple-converted-space"> </span></p>
+<ul>
+<li>Gun control for registered Democrats? Would Dems vote for that?</li>
+<li>Raise postal fees from China, to pay for Fentanyl fighting tech?</li>
+<li>North Korean progress is looking really good</li>
+<li>Global warming, strong versus weak arguments</li>
+</ul>
+<hr />
+<p>I fund my Periscopes and podcasts via audience <a href="https://www.patreon.com/scottadamssays">micro-donations on Patreon</a>. I prefer this method over accepting advertisements or working for a &#8220;boss&#8221; somewhere because it keeps my voice independent. No one owns me, and that is rare. I&#8217;m trying in my own way to make the world a better place, and your contributions help me stay inspired to do that.</p>
+<p>See <a href="https://www.pscp.tv/ScottAdamsSays/1nAKERDOwylGL">all of my Periscope videos</a> here.</p>
+<p>Find my <a href="https://interface.whenhub.com">WhenHub Interface app</a> here.</p>
+<p>The post <a rel="nofollow" href="http://blog.dilbert.com/2018/10/07/episode-250-scott-adams-civil-unrest-north-korea-and-rehab-city/">Episode 250 Scott Adams: Civil Unrest, North Korea and Rehab City</a> appeared first on <a rel="nofollow" href="http://blog.dilbert.com">Dilbert Blog</a>.</p>
+<img src="http://feeds.feedburner.com/~r/dilbert/blog/~4/T5l59jiPOfg" height="1" width="1" alt=""/>]]></content:encoded>
+	<enclosure url="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-250-Scott-Adams-Civil-Unrest-North-Korea-and-Rehab-City.mp3" length="47674168" type="audio/mpeg" />
+		<itunes:subtitle>Topics:  Gun control for registered Democrats? Would Dems vote for that? Raise postal fees from China, to pay for Fentanyl fighting tech? North Korean progress is looking really good Global warming, strong versus weak arguments I fund my Periscopes and...</itunes:subtitle>
+		<itunes:summary><![CDATA[Topics:  Gun control for registered Democrats? Would Dems vote for that? Raise postal fees from China, to pay for Fentanyl fighting tech? North Korean progress is looking really good Global warming, strong versus weak arguments I fund my Periscopes and podcasts via audience micro-donations on Patreon. I prefer this method over accepting advertisements or working [&hellip;]]]></itunes:summary>
+		<itunes:author>Dilbert Blog</itunes:author>
+		<itunes:explicit>yes</itunes:explicit>
+		<itunes:duration>49:40</itunes:duration>
+	<feedburner:origLink>http://blog.dilbert.com/2018/10/07/episode-250-scott-adams-civil-unrest-north-korea-and-rehab-city/</feedburner:origLink></item>
+		<item>
+		<title>Episode 249 Scott Adams: The Kavanaugh Future</title>
+		<link>http://feed.dilbert.com/~r/dilbert/blog/~3/nciguyfhjUs/</link>
+		<pubDate>Sat, 06 Oct 2018 14:56:25 +0000</pubDate>
+		<dc:creator><![CDATA[Scott Adams]]></dc:creator>
+				<category><![CDATA[Podcast]]></category>
+		<category><![CDATA[CNN]]></category>
+		<category><![CDATA[Jordan Peterson]]></category>
+		<category><![CDATA[Rand Paul]]></category>
+		<category><![CDATA[Scott Adams]]></category>
+
+		<guid isPermaLink="false">http://blog.dilbert.com/?p=17646</guid>
+		<description><![CDATA[<p>Topics:  Jordan Peterson suggestion for Kavanaugh to accept and resign Top CNN headline: Trump is on a winning streak Rand Paul bill to fight opioid addiction I fund my Periscopes and podcasts via audience micro-donations on Patreon. I prefer this method over accepting advertisements or working for a &#8220;boss&#8221; somewhere because it keeps my voice [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://blog.dilbert.com/2018/10/06/episode-249-scott-adams-the-kavanaugh-future/">Episode 249 Scott Adams: The Kavanaugh Future</a> appeared first on <a rel="nofollow" href="http://blog.dilbert.com">Dilbert Blog</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img class="aligncenter size-full wp-image-17644" src="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-249.png" alt="" width="629" height="384" srcset="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-249.png 629w, http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-249-300x183.png 300w" sizes="(max-width: 629px) 100vw, 629px" /></p>
+<p><b>Topics:</b><span class="Apple-converted-space"> </span></p>
+<ul>
+<li>Jordan Peterson suggestion for Kavanaugh to accept and resign</li>
+<li>Top CNN headline: Trump is on a winning streak</li>
+<li>Rand Paul bill to fight opioid addiction</li>
+</ul>
+<hr />
+<p>I fund my Periscopes and podcasts via audience <a href="https://www.patreon.com/scottadamssays">micro-donations on Patreon</a>. I prefer this method over accepting advertisements or working for a &#8220;boss&#8221; somewhere because it keeps my voice independent. No one owns me, and that is rare. I&#8217;m trying in my own way to make the world a better place, and your contributions help me stay inspired to do that.</p>
+<p>See <a href="https://www.pscp.tv/ScottAdamsSays/1nAKERDOwylGL">all of my Periscope videos</a> here.</p>
+<p>Find my <a href="https://interface.whenhub.com">WhenHub Interface app</a> here.</p>
+<p>The post <a rel="nofollow" href="http://blog.dilbert.com/2018/10/06/episode-249-scott-adams-the-kavanaugh-future/">Episode 249 Scott Adams: The Kavanaugh Future</a> appeared first on <a rel="nofollow" href="http://blog.dilbert.com">Dilbert Blog</a>.</p>
+<img src="http://feeds.feedburner.com/~r/dilbert/blog/~4/nciguyfhjUs" height="1" width="1" alt=""/>]]></content:encoded>
+	<enclosure url="http://blog.dilbert.com/wp-content/uploads/2018/10/Episode-249-Scott-Adams-The-Kavanaugh-Future.mp3" length="31510014" type="audio/mpeg" />
+		<itunes:subtitle>Topics:  Jordan Peterson suggestion for Kavanaugh to accept and resign Top CNN headline: Trump is on a winning streak Rand Paul bill to fight opioid addiction I fund my Periscopes and podcasts via audience micro-donations on Patreon.</itunes:subtitle>
+		<itunes:summary><![CDATA[Topics:  Jordan Peterson suggestion for Kavanaugh to accept and resign Top CNN headline: Trump is on a winning streak Rand Paul bill to fight opioid addiction I fund my Periscopes and podcasts via audience micro-donations on Patreon. I prefer this method over accepting advertisements or working for a &#8220;boss&#8221; somewhere because it keeps my voice [&hellip;]]]></itunes:summary>
+		<itunes:author>Dilbert Blog</itunes:author>
+		<itunes:explicit>yes</itunes:explicit>
+		<itunes:duration>13:08</itunes:duration>
+	<feedburner:origLink>http://blog.dilbert.com/2018/10/06/episode-249-scott-adams-the-kavanaugh-future/</feedburner:origLink></item>
+	</channel>
+</rss>

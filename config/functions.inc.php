@@ -1,0 +1,1 @@
+<? $sql_user = "clayton";$sql_pw = "Fluffy3540#";$database = "mypage1";

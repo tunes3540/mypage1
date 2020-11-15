@@ -1,0 +1,4 @@
+AuthName "Lunch Page"
+AuthType Basic
+AuthUserFile c:/xampp/.htpasswd
+require valid-user

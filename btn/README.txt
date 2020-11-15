@@ -1,0 +1,2 @@
+This folder contains the default Whizzywig buttons, as provided on the Whizzywig download page (http://www.unverse.net/whizzywig-download.html).
+If you want text labels for the buttons instead of images, just delete the buttons in this folder. 
